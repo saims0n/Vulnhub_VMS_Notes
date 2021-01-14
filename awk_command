@@ -1,0 +1,43 @@
+source - 
+
+https://linuxize.com/post/awk-command/
+
+
+
+> ifconfig | grep inet | awk '/192/ { print $2 }' 
+
+
+Here's the 192 is argumet to search in fild 2 
+the same result can be get by only awk
+
+> ifconfig  | awk '/192/{ print $2 }' 
+
+> awk '/0.5/ { print $1 }' teams.txt   (grep the data which has  0.5 in row from the filed 1)
+
+
+> awk '/^[0-9][0-9]/ { print $1 }' teams.txt
+
+print the field one with starting the degit zero to nine 
+
+
+
+> awk '$2 ~ /ia/ { print $1 }' teams.txt
+
+For example, to print the first field of each record whose second field contains “ia” you would type
+
+we can use not ! before tild to not print thoes value
+
+
+
+> awk '$3 > 50 { print $1 }' teams.txt  (if the third field is grater tha
+
+command prints the first field of all records whose third field is greater than 50:
+
+
+> awk '/Raptors/,/Celtics/ { print $1 }' teams.txt
+
+print the first field of all records starting from the record including “Raptors” until therecord including “Celtics”
+
+
+
+

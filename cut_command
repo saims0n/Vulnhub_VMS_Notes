@@ -1,0 +1,68 @@
+this will print the firt field 
+
+cat /etc/passwd | cut -d ':' -f1  using delemeter : this will cut the output of the passwd just extend the field
+
+
+For example, to display the 1st and 3rd fields using “:” as a delimiter, you would type:
+
+cut test.txt -d ':' -f 1,3
+
+You can use any single character as a delimiter. In the following example, we are using the space character as a delimiter and printing the 2nd field:
+
+echo "Lorem ipsum dolor sit amet" | cut -d ' ' -f 2
+
+output - ipsum
+
+
+Select the 5th byte:
+
+echo 'drüberspringen' | cut -b 5
+output-  b
+
+Select the 5th, 9th, and 13th bytes:
+
+echo 'drüberspringen' | cut -b 5,9,13
+
+output-  bpg
+
+cuting the -b byte one to six and the cut again of field one with delm :
+└──╼ #cat /etc/passwd | cut -b 1-6 | cut -d ':' -f1
+ 
+output - root
+daemon
+bin
+sys
+sync
+games
+
+
+Select the range from 1st to 5th byte:
+
+echo 'drüberspringen' | cut -b 1-5
+
+output-   drüb 
+
+get list of all users of passwd
+
+└──╼ #cat /etc/passwd |  cut -d ':' -f1
+
+└──╼ #ifconfig | grep inet | cut -d ":" -f2 | cut -b14-27 | cut -d ' ' -f1
+
+output 
+
+127.0.0.1
+
+192.168.207.1
+
+172.16.233.1
+
+192.168.43.132
+
+
+
+
+
+
+
+
+

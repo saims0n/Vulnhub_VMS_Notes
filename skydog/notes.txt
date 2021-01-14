@@ -1,0 +1,37 @@
+skydogctf.....challenge
+
+22/tcp open  ssh     OpenSSH 6.6.1p1 Ubuntu 2ubuntu2 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   1024 c8:f7:5b:33:8a:5a:0c:03:bb:6b:af:2d:a9:70:d3:01 (DSA)
+|   2048 01:9f:dd:98:ba:be:de:22:4a:48:4b:be:8d:1a:47:f4 (RSA)
+|   256 f8:a9:65:a5:7c:50:1d:fd:71:57:92:38:8b:ee:8c:0a (ECDSA)
+|_  256 1d:eb:57:4a:b6:23:66:f0:e7:d5:bb:8d:1e:d7:de:23 (ED25519)
+80/tcp open  http    Apache httpd 2.4.7 ((Ubuntu))
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+| http-robots.txt: 252 disallowed entries (15 shown)
+| /search /sdch /groups /catalogs /catalogues /news /nwshp 
+| /setnewsprefs? /index.html? /? /?hl=*& /?hl=*&*&gws_rd=ssl 
+|_/addurl/image? /mail/ /pagead/
+|_http-server-header: Apache/2.4.7 (Ubuntu)
+|_http-title: Site doesn't have a title (text/html).
+MAC Address: 30:24:32:E1:8C:91 (Intel Corporate)
+Device type: general purpose
+Running: Linux 3.X|4.X
+OS CPE: cpe:/o:linux:linux_kernel:3 cpe:/o:linux:linux_kernel:4
+OS details: Linux 3.2 - 4.9
+Uptime guess: 0.002 days (since Sat Oct 31 23:45:50 2020)
+Network Distance: 1 hop
+TCP Sequence Prediction: Difficulty=255 (Good luck!)
+IP ID Sequence Generation: All zeros
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+sechexploit gave the result but i'm going with enum for now....
+
+on robot.txt i got 1Flag
+# Congrats Mr. Bishop, your getting good - flag{cd4f10fcba234f0e8b2f60a490c306e6}
+
+and second one was in comment of image..
+with exiftool filename
+
+flag{abc40a2d4e023b42bd1ff04891549ae2}

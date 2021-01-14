@@ -1,0 +1,29 @@
+POST /Kashyapa/admin/login.php HTTP/1.1
+
+Host: 192.168.43.203
+
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0
+
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+
+Accept-Language: en-US,en;q=0.5
+
+Accept-Encoding: gzip, deflate
+
+Referer: http://192.168.43.203/Kashyapa/admin/login.php
+
+Content-Type: application/x-www-form-urlencoded
+
+Content-Length: 46
+
+DNT: 1
+
+Connection: close
+
+Cookie: CMSSESSIDcb079ad4d4cb=p79l2bud3247bcot6da352adg5
+
+Upgrade-Insecure-Requests: 1
+
+
+
+username=atri&password=atri&loginsubmit=

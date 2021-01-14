@@ -1,0 +1,29 @@
+ip 
+
+192.168.56.136
+
+
+Nmap scan report for 192.168.56.136
+Host is up (0.00016s latency).
+Not shown: 995 closed ports
+PORT     STATE SERVICE
+22/tcp   open  ssh
+80/tcp   open  http
+8000/tcp open  http-alt
+8080/tcp open  http-proxy
+8081/tcp open  blackice-icecap
+MAC Address: 08:00:27:D7:FC:48 (Oracle VirtualBox virtual NIC)
+
+http://192.168.56.136:8081/phpmyadmin/
+
+
+
+
+allow php uploading by just allowing the phplocal config file in local admin panel 
+
+ls
+$TYPO3_CONF_VARS['BE']['fileExtensions']['webspace']['allow'] = 'php';
+$TYPO3_CONF_VARS['BE']['fileExtensions']['webspace']['deny'] = '';
+$TYPO3_CONF_VARS['BE']['fileDenyPattern'] = '';
+
+

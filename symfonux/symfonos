@@ -1,0 +1,14 @@
+:~/Desktop# mount -t cifs //192.168.56.137/anonymous /root/Desktop/ -o username=Helios,password=qwerty
+root@saim:~/Desktop# ls
+research.txt  todo.txt
+root@saim:~/Desktop# cat research.txt 
+Helios (also Helius) was the god of the Sun in Greek mythology. He was thought to ride a golden chariot which brought the Sun across the skies each day from the east (Ethiopia) to the west (Hesperides) while at night he did the return journey in leisurely fashion lounging in a golden cup. The god was famously the subject of the Colossus of Rhodes, the giant bronze statue considered one of the Seven Wonders of the Ancient World.
+root@saim:~/Desktop# cat todo.txt 
+
+1. Binge watch Dexter
+2. Dance
+3. Work on /h3l105
+
+root@saim:~/Desktop# ^C
+root@saim:~/Desktop# 
+

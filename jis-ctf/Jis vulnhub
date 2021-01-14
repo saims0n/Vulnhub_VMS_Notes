@@ -1,0 +1,58 @@
+Jis vulnhub
+ip 192.168.56.5
+
+
+Nmap scan report for 192.168.56.5
+Host is up (0.00069s latency).
+Not shown: 65533 closed ports
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 7.2p2 Ubuntu 4ubuntu2.1 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 af:b9:68:38:77:7c:40:f6:bf:98:09:ff:d9:5f:73:ec (RSA)
+|   256 b9:df:60:1e:6d:6f:d7:f6:24:fd:ae:f8:e3:cf:16:ac (ECDSA)
+|_  256 78:5a:95:bb:d5:bf:ad:cf:b2:f5:0f:c0:0c:af:f7:76 (ED25519)
+80/tcp open  http    Apache httpd 2.4.18 ((Ubuntu))
+| http-robots.txt: 8 disallowed entries 
+| / /backup /admin /admin_area /r00t /uploads 
+|_/uploaded_files /flag
+|_http-server-header: Apache/2.4.18 (Ubuntu)
+| http-title: Sign-Up/Login Form
+|_Requested resource was login.php
+MAC Address: 08:00:27:68:18:58 (Oracle VirtualBox virtual NIC)
+Device type: general purpose
+Running: Linux 3.X|4.X
+OS CPE: cpe:/o:linux:linux_kernel:3 cpe:/o:linux:linux_kernel:4
+OS details: Linux 3.2 - 4.9
+Network Distance: 1 hop
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+TRACEROUTE
+HOP RTT     ADDRESS
+1   0.69 ms 192.168.56.5
+
+
+
+
+The 1st flag is : {8734509128730458630012095}
+
+
+i found the robots.txt entry
+User-agent: *
+Disallow: /
+Disallow: /backup
+Disallow: /admin
+Disallow: /admin_area
+Disallow: /r00t
+Disallow: /uploads
+Disallow: /uploaded_files
+Disallow: /flag
+
+
+http://192.168.56.5/admin_area/
+
+\tusername : admin\n\tpassword : 3v1l_H@ck3r\n\tThe 2nd flag is : {7412574125871236547895214}\n"
+
+
+the i just uploaded the shell
+and hit ip/uploaded_files/filename
+gave me shell

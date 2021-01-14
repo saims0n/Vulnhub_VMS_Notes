@@ -1,0 +1,96 @@
+how to get shells of vulnhub machines
+
+1. FTP + iis = shell {by uploading reverse shell }
+   directory was share with anonymous xyz
+
+2. Lazysysadmin
+  Smb(file sharing was enable with +r permission) + find password (password/hash/password     
+content) + files = shell
+
+
+3. webdeveloper 
+   form web (weget dir from dirb + content of ipcap where the wireshark capture the credencials  of user and then we get log in in wp-admin,get revrese shell by aditing theme 404.php and call =shell in shell find wp-config.php to get stable shell by using password masterOfUniverse )
+
+
+4. metasploit talble 2
+   nfs[dir share anonymous login was enable eith (r/w )permission ) + /etc/passwd + adduser =shell ]
+or (nfs + dir share with w/x + ssh autkey(users key) = shell )
+
+5. vulnix
+   [ using finger we get users + hydra on ssh + mount the shere /home/vulnix* + after getting shell creat user with same uuid 2008 in @root and get acess of the execute the file  + (guirf) =shell
+
+6. stapler
+  hydra on ssh + for root privilages (guirf) = shell (i did not tryed to get shell by web but there is a way to get shell of the machine from machine)
+
+7. Vulnos
+   nmap + gubuster + nikto (target for web) + (after getting web dir tryied defualt id pass for phpmyadmin + from where i get passwor and userneme of drupal6 and then uploaded phpshesll as .phtml form ) = Shell
+
+8. kioptrix2
+  nmap + directory broute + enumerate web + sql enjection on login page + use nc to get reverce shell and exploit samba by the .c programe 
+
+sunrise 
+nmap + web enumeration + weborf exploit+ dirb after weborf + get ./mysqlhistory = user name password + ssh =shell
+
+9 Dc-1
+ nmap+web enumeration + droopescan + exploit 34992.py (user adding vuln)=login + enable php code + uploading php reverseshell = shell
+
+
+10 my fileserver 1 
+using web got  a passwor + ftp to create .ssh and put the key by using passwor rootroot1 and and builed connection = shell 
+
+11 dc2
+  enumerate wp got username + enm pass = usr+pass=ssh vi to tty then run sudo gid help add-root
+  
+12 Syfonos
+    share mount with anonymous then get a pss in it to use mount the protected share got the web directory which was word press + user enumerate + exploit was in mailmasta plugin = lfi
+    and converted lfi by using logpoisning  mail = shell 
+
+13 solid state 
+   nmap + enumerated the port 80 and 25 110 4555 to build connection with mail server using
+   telnet on port every there james server was vuln defualt log root root
+   + got a python xploit of james which allow to remote execute + reset the user pass to show the
+   mail of users got username + pass =ssh shell (python tmp scrip to root)  
+ 
+14 RickiculousEasy  nmap + web enm give you the 3 flag and one pass and  all username are there
+   on port 80 where we ping using ;more /passwd next usname + pass = ssh shell
+   the enum + crunch + hydra = sudo root  
+   
+15 dc-3 Nmap shown me port 80 only + enumeratin joomla version /administrator/language/en-GB/en-GB.xml or joomscan
+   + sqlmap + hashed pass + hashcat + admin+pas + rershl = shell     
+
+16 dc-4 nmap + dirbuster with medium2.3 + hydra on admin with string S=command.php + executing bind shell
+   command on web will give you = shell = old.bk+hydra+var mail + pass+ sudo =root
+
+
+17 five 86 nmap + exploit db webmin = shell
+
+
+
+18 dc 5  
+
+
+
+19 dc 6
+
+
+20 gain power..
+ssh with emp1 then written a script to get sudo user from non sudo user then swith to sudo user he have /usr/bin/ushare su to programmer then edited a cronjob script to get shell of vansha user with nc and then get secret.zip encrypted in base64 password and the used python to decode and again encode then crack wiht fcrackzip got zip pass and get the web pass with defualt root user.. boom
+
+
+21 Mr robot 
+
+   nmap + enumeration = got wordlist + key the used wfuzz to brouteforce the wp-admin wordpress by sorted dict and got dashbort + theme=shell then tty and some enum gives me user robot by finding and decrypting key and then used suid NMAP to get root...
+
+22) symfonus2
+      
+    Nmap give use potential information + smb anonymous login + enum4linux gave use users + using proftpd exploit we can copy the bkp with smb and download them using anonymous login + unshadow passwd file shadow >unshadow.txt + john = passowrd=shell+
+then linum.sh=local port + ssh tunneling=weblogin, + librenms exploit=sudo shell + gtfo=root
+
+23) dc-7 
+   
+   Nmap+ Web enum(footer) + git directory of the dc7 =username+pass then drush reset admin let me login as admin + install php module filter gave us rshell of data then writable bash script retuned root shell
+
+24) root note--- As always nmap + web give me lfi then there was phpliteadmin with defult password of “admin” the version
+1.9.3 of liteadmin was vulnarable with command execution via creating db creating table with text field phpcode + lfi =shell 
+then there was a wordpress dir got the cred for user ssh + sudo on tar and zip pop the root shell...
+

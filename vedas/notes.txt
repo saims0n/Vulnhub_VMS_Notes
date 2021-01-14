@@ -1,0 +1,47 @@
+````~~~HA VEDAS~~~````
+
+
+22/tcp open  ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 11:06:7e:69:3a:9d:39:f0:2c:63:a5:9e:47:33:74:e3 (RSA)
+|   256 ea:2c:a2:44:b9:26:ab:b5:27:0d:d5:e4:2b:24:b4:8f (ECDSA)
+|_  256 99:84:38:df:29:a0:c8:8d:12:03:d4:3f:6f:d4:bc:37 (ED25519)
+80/tcp open  http    Apache httpd 2.4.29 ((Ubuntu))
+| http-methods: 
+|_  Supported Methods: GET POST OPTIONS HEAD
+|_http-server-header: Apache/2.4.29 (Ubuntu)
+|_http-title: HA: Vedas
+MAC Address: 30:24:32:E1:8C:91 (Intel Corporate)
+Device type: general purpose
+Running: Linux 3.X|4.X
+OS CPE: cpe:/o:linux:linux_kernel:3 cpe:/o:linux:linux_kernel:4
+OS details: Linux 3.2 - 4.9
+Uptime guess: 10.157 days (since Fri Oct 23 19:23:23 2020)
+Network Distance: 1 hop
+TCP Sequence Prediction: Difficulty=265 (Good luck!)
+IP ID Sequence Generation: All zeros
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+
+
+#gobuster dir -u http://192.168.43.203 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt 
+===============================================================
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:            http://192.168.43.203
+[+] Threads:        10
+[+] Wordlist:       /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+[+] Status codes:   200,204,301,302,307,401,403
+[+] User Agent:     gobuster/3.0.1
+[+] Timeout:        10s
+===============================================================
+2020/11/02 23:21:52 Starting gobuster
+===============================================================
+/images (Status: 301)
+/style (Status: 301)
+/server-status (Status: 403)
+===============================================================
+2020/11/02 23:22:21 Finished
+
+Nothing seems to interesting....

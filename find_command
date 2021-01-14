@@ -1,0 +1,78 @@
+https://linuxize.com/post/how-to-find-files-in-linux-using-the-command-line/ 
+
+
+
+
+> find / -type f -name '*.log.gz'   (to find file with extention)
+
+> find -L /var/www -name "*.js"  (search file ending with .js file )
+
+> find /home/linuxize -type f -name document.pdf
+
+above comand will find document.pdf but if we use 
+-iname then it will seach case sensitive
+
+> find /home/linuxize -type f -iname document.pdf
+
+
+
+
+Find Files by Type
+
+Sometimes you might need to search for specific file types such as regular files, directories, or symlinks. In Linux, everything is a file.
+
+To search for files based on their type, use the -type option and one of the following descriptors to specify the file type:
+
+    f: a regular file
+    d: directory
+    l: symbolic link
+    c: character devices
+    b: block devices
+    p: named pipe (FIFO)
+    s: socket
+
+
+
+
+find file with permission 
+
+> find /var/www/my_website -type d -exec chmod 0755 {} \;
+
+> find /var/www/html -perm 644      ( like rw r r)
+
+
+> find . -perm /444   (this will search read file for user group other)
+
+
+
+If minus - is used as the prefix, then for the file to match, at least the specified bits must be set. The following command will search for files that have read and write permission for the owner and group and are readable by other users:
+
+
+> find . -perm -664   
+
+
+Find Files by Owner
+
+To find files owned by a particular user or group, use the -user and -group options
+
+> find / -user linuxize (serch all files own by linuxize)
+
+
+find files with owner and set to another user
+
+
+> find / -user www-data -type f  -exec chown nginx {} \;
+
+
+
+Find and Delete Files 
+Ensure you are using this option only when you are confident
+
+
+> find /var/log/ -name `*.temp` -delete
+
+
+
+
+
+
